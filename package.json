@@ -1,6 +1,6 @@
 {
   "name": "cp-react-tree-table",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
@@ -24,6 +24,7 @@
     "type": "git",
     "url": "https://github.com/constantin-p/cp-react-tree-table.git"
   },
+  "homepage" : "https://constantin-p.github.io/cp-react-tree-table",
   "description": "A fast, efficient tree table component for ReactJS.",
   "author": "Constantin Panaitescu",
   "license": "MIT",
