@@ -119,6 +119,7 @@ export default class VirtualList extends Component<Props, State> {
 
 const STYLE_LIST = {
   overflow: 'auto',
+  WebkitOverflowScrolling: 'touch',
 };
 
 const STYLE_WRAPPER = {

@@ -30,71 +30,64 @@ a:active {
 
 .wrapper { 
   min-height: 100vh;
-  padding: 60px 15%;
+  padding: 0 1rem 4rem 1rem;
+  margin: 0 15%;
   box-sizing: border-box;
-
   background: #ffffff;
 }
 
+header {
+  align-items: stretch;
+  display: flex;
+  padding: 1.5rem 0;
+  flex-direction: column;
+}
+
+
 
 /*
- *  Links
+ *  Links 
  */
-.links {
-  list-style: none;
-  padding: 1rem 0 0 0;
-  margin-bottom: 1.6rem;
+header .links ul {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
 }
 
-.links li {
+header .links li {
   color: #000;
-  font-size: 1rem;
+  font-size: .9rem;
   position: relative;
-  margin-bottom: .5rem;
-  margin-right: 2rem;
+  display: inline-block;
 }
 
-.links a {
+header .links li:not(:first-child) {
+  margin-left: 1.5rem;
+}
+
+header .links a {
   font-size: inherit;
   color: inherit;
-  font-weight: 600;
+  font-weight: 500;
   position: relative;
   transition: color .2s ease-in-out;
 }
 
-.links .service {
-  min-width: 4rem;
-  display: inline-block;
-}
-
-.links .sep {
-  width: 1rem;
-  display: inline-block;
-  position: relative;
-  vertical-align: middle;
-  margin: 0 1rem;
-}
-
-.links .sep::after {
-  position: absolute;
-  content: '';
-  left: 0;
-  top: -1px;
-  right: 0;
-  height: 2px;
-  background-color: #999;
-}
-
-.links .name {
+header .links .name {
   color: #999;
-  font-size: .9rem;
   font-weight: 400;
   font-family: 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, Courier, monospace;
 }
 
+header .links .name::before {
+  content: ' (';
+}
+header .links .name::after {
+  content: ') ';
+}
 
 /* Underline animation */
-.links a::after {
+header .links a::after {
   position: absolute;
   content: '';
   display: block;
@@ -109,18 +102,89 @@ a:active {
   transform: scaleX(0);
 }
 
-
 /* hover styles */
-.links li a:hover::after,
-.links li a:focus::after {
+header .links li a:hover::after,
+header .links li a:focus::after {
   transform: scaleX(1);
   background-color: #0f55eb;
 }
 
-.links li a:hover,
-.links li a:focus {
+header .links li a:hover,
+header .links li a:focus {
   color: #0f55eb;
 }
+
+
+
+/*
+ *  Install 
+ */
+header .install {
+  padding-top: 1.5rem;
+}
+
+header .install p {
+  background: #f6f6f7;
+  padding: 1rem;
+  font-family: 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, Courier, monospace;
+}
+
+header .install p::before {
+  content: '$ ';
+}
+
+.divider {
+  border-top: 1px solid #e7e9ed;
+  height: 1px;
+  margin: 14px 0 15px 0;
+  text-align: center;
+}
+
+.divider::after {
+  background: #fff;
+  color: #aaa;
+  content: 'OR';
+  display: inline-block;
+  font-size: .7rem;
+  padding: 0 .4rem;
+  transform: translateY(-.45rem);
+}
+
+
+
+@media (max-width: 840px) {
+  .hide-mobile {
+    display: none;
+  }
+
+  .wrapper {
+    margin: 0;
+  }
+
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  header .install {
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 0;
+  }
+
+  header .install p {
+    margin: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+  }
+}
+
+
 
 
 /*
@@ -156,7 +220,7 @@ a:active {
 }
 
 .demo-tree-table .cell-wrapper .toggle-button {
-  background: #dedede;
+  background: #e3e3e3;
   color: #0f55eb;
   cursor: pointer;
   padding: 1px;
@@ -164,5 +228,5 @@ a:active {
 }
 
 .demo-tree-table .cell-wrapper .toggle-button:hover {
-  background: #cfcfcf;
+  background: #d7d7d7;
 }

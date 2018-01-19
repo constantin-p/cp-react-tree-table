@@ -13,14 +13,18 @@ export default {
       format: 'cjs'
     },
     {
+      file: pkg.umd,
+      name: pkg.umdName,
+      format: 'umd'
+    },
+    {
       file: pkg.module,
       format: 'es'
     }
   ],
   external: [
     'react',
-    'react-dom',
-    'prop-types'
+    'react-dom'
   ],
   plugins: [
     flow(),
