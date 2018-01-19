@@ -1,4 +1,5 @@
 # cp-react-tree-table
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/constantin-p/cp-react-tree-table/raw/master/LICENSE)
 
 A fast, efficient tree table component for ReactJS.
 
