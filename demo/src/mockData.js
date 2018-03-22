@@ -13,13 +13,13 @@ export const generateData = () => {
       children: [],
     };
 
-    for (var j = 0; j < getRandomInt(0, 25); j++) {
+    for (var j = 0; j < getRandomInt(2, 25); j++) {
       count++;
       let _item = {
         data: { name: '[2](i:'+ (j + 1) +')' },
         children: [],
       };
-      for (var x = 0; x < getRandomInt(0, 15); x++) {
+      for (var x = 0; x < getRandomInt(2, 15); x++) {
         count++;
         let $item = {
           data: { name: '[3](i:'+ (x + 1) +')' },

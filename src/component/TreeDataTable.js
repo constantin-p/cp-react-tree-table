@@ -54,10 +54,21 @@ export default class TreeDataTable extends Component<Props, State> {
     let rowIndex = Math.min(root.getRowIndex(row) + 1, root.getSize());
 
     let hasChange: boolean = false;
-    root.mapRange(rowIndex, root.getSize() - rowIndex, (data: Row) => {
-      if (data.depth === currentDepth + 1) {
-        data.toggle();
-        hasChange = true;
+    let toggleOpen: ?boolean;
+    root.mapRange(rowIndex, root.getSize() - rowIndex, (row: Row) => {
+      if (toggleOpen == null) {
+        toggleOpen = !row.isVisible();
+      }
+
+      if (row.depth >= currentDepth + 1) {
+        if (row.depth === currentDepth + 1) {
+          row.toggle();
+          hasChange = true;
+        } else if (!toggleOpen && row.isVisible()) { // Close all children
+          row.toggle();
+          hasChange = true;
+        }
+        
         return false;
       } else {
         if (hasChange) {
