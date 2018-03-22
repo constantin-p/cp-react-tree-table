@@ -1,7 +1,7 @@
 {
   "name": "cp-react-tree-table",
   "umdName": "TreeDataTable",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "dist/index.js",
   "umd": "dist/index.umd.js",
   "module": "dist/index.es.js",

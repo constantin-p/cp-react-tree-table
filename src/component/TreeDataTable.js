@@ -71,12 +71,11 @@ export default class TreeDataTable extends Component<Props, State> {
         
         return false;
       } else {
-        if (hasChange) {
-          this.setState({ root: root });
-        }
         return true;
       }
     });
-
+    if (hasChange) {
+      this.setState({ root: root });
+    }
   }
 }
