@@ -30,6 +30,7 @@ Import the `cp-react-tree-table` module:
 import TreeDataTable from 'cp-react-tree-table';
 ```
 
+
 ### Example
 
 [Example Live Demo](https://jsfiddle.net/constantin_p/wzjgspe9/)
@@ -59,12 +60,14 @@ const mockData = [
         ],
       },
       {
-        data: { name: '[2](2)' },
+        data: { name: '[2](2) Height: 40px.' },
+        height: 40,
       }
     ],
   },
   {
-    data: { name: '[1](2)' },
+    data: { name: '[1](2) Height: 30px.' },
+    height: 30,
   },
 ];
 
@@ -136,6 +139,19 @@ _**\* `renderCell(rowData, rowMetadata, toggleChildren) => Node`**:_
     * **`depth`**: (`number`) Starts from 0, indicates the depth level of the item inside the tree.
     * **`hasChildren`**: (`boolean`)
   * **`toggleChildren`**: Callback function that will toggle direct descendants of the item.
+
+
+
+## [`TreeDataRow`](https://github.com/constantin-p/cp-react-tree-table/blob/c41f609cd806d2b2b15acf45ab120148691d0519/src/model/row.js#L5) Object type
+Properties:
+
+|                   | Type       | Required | Description              |
+|-------------------|------------|----------|------------------------  | 
+| **`data`**        | _any_      | `yes`    | The item data object     | 
+| **`height`**      | _Number_   | no       | Row height (px) \*       |
+| **`children`**    | _Array<TreeDataRow>_   | no       | List of children data items |
+
+_**\* Row height:** default `26`px._
 
 
 
