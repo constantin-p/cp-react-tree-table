@@ -154,7 +154,7 @@ Properties:
 |-------------------|------------|----------|------------------------  | 
 | **`data`**        | _any_      | `yes`    | The item data object     | 
 | **`height`**      | _Number_   | no       | Row height (px) \*       |
-| **`children`**    | _Array<TreeDataRow>_   | no       | List of children data items |
+| **`children`**    | _Array<[`TreeDataRow`](https://github.com/constantin-p/cp-react-tree-table#treedatarow-object-type)>_   | no       | List of children data items |
 
 _**\* Row height:** default `26`px._
 
