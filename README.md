@@ -43,7 +43,8 @@ import TreeDataTable from 'cp-react-tree-table';
 
 const mockData = [
   {
-    data: { name: '[1](1)' },
+    data: { name: '[1](1) Height: 25px.' },
+    height: 25,
     children: [
       {
         data: { name: '[2](1)' },
@@ -66,7 +67,11 @@ const mockData = [
     ],
   },
   {
-    data: { name: '[1](2) Height: 30px.' },
+    data: { name: '[1](2) Height: 30px.' },
+    height: 30,
+  },
+  {
+    data: { name: '[1](3) Height: 30px.' },
     height: 30,
   },
 ];
@@ -76,7 +81,7 @@ export default class DemoApp extends Component {
   render () {
     return (
         <TreeDataTable data={mockData} height={100} className="demo-tree-table">
-          <TreeDataTable.Column grow={0} basis="200px" renderCell={this.renderIndexColumn} />
+          <TreeDataTable.Column grow={0} basis="300px" renderCell={this.renderIndexColumn} />
           <TreeDataTable.Column grow={1} renderCell={this.renderColumn} />
         </TreeDataTable>
     );
