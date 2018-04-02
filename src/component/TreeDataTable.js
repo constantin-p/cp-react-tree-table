@@ -7,12 +7,14 @@ import VirtualList from './VirtualList';
 
 import BTRoot from '../model/bt_root';
 import Row from '../model/row';
+import type { TreeDataRow  } from '../model/row';
 
 import { processData } from '../util';
 
 
+
 type Props = {
-  data: Array<any>,
+  data: Array<TreeDataRow>,
   children: ChildrenArray<Element<typeof Column>>,
 
   height: ?number,

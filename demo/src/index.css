@@ -197,7 +197,7 @@ header .install p::before {
 }
 
 .demo-tree-table .cp_tree-table_row:not(:first-child) {
-  box-shadow: inset 0 1px 0 #eeeeee;
+  box-shadow: inset 0 1px 0 #DFE1E5;
 }
 
 .demo-tree-table .cell-wrapper {

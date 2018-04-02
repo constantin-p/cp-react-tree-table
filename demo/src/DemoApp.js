@@ -56,7 +56,7 @@ export default class DemoApp extends Component<Props, State> {
 
   renderIndexColumn = (data: any, metadata: RowMetadata, toggleChildren: () => void) => {
     return (
-      <div className="cell-wrapper" style={{ paddingLeft: (metadata.depth * 25) + 'px'}}>
+      <div className="cell-wrapper" style={{ paddingLeft: `${(metadata.depth * 25)}px`, backgroundColor: this._computeBg(data.height) }}>
         <span className="toggle-button-wrapper" style={{ width: '80px'}}>
           {(metadata.hasChildren)
             ? (
@@ -74,9 +74,22 @@ export default class DemoApp extends Component<Props, State> {
   
   renderColumn = (data: any, metadata: RowMetadata, toggleChildren: () => void) => {
     return (
-      <div className="cell-wrapper">
-        <span>Column 2: {data.name}</span>
+      <div className="cell-wrapper" style={{ backgroundColor: this._computeBg(data.height) }}>
+        <span>Height: {data.height}.</span>
       </div>
     );
+  }
+
+  _computeBg = (heightKey: string) => {
+    const heightColorMap = {
+      '26px':'rgba(255, 255, 255, .5)',
+      '30px':'rgba(250, 251, 252, .5)',
+      '32px':'rgba(244, 245, 247, .4)',
+      '36px':'rgba(235, 236, 240, .4)',
+      '38px':'rgba(223, 225, 229, .3)',
+      '42px':'rgba(193, 199, 208, .3)',
+    };
+
+    return heightColorMap[heightKey];
   }
 }

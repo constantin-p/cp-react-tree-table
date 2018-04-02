@@ -2,6 +2,12 @@
 import BTLeaf from './bt_leaf';
 
 
+export type TreeDataRow = {
+  data: any,
+  height?: number,
+  children?: Array<TreeDataRow>,
+};
+
 export type RowMetadata = {
   depth: number;
   hasChildren: boolean;
@@ -17,16 +23,18 @@ export default class Row {
   _height: number = 26;    // height in px
   _cacheHeight: number = 26;
 
-  constructor(data: any, hasChildren: boolean, depth: number = 0, height: ?number) {
+  constructor(data: any, hasChildren: boolean, depth: number = 0, isVisible: boolean, height: ?number) {
     this.data = data;
     this.depth = depth;
     this._hasChildren = hasChildren;
 
     if (height != null) {
       this._height = height;
-      if (height > 0) {
-        this._cacheHeight = height;
-      }
+      this._cacheHeight = height;
+    }
+
+    if (!isVisible) {
+      this._height = 0;
     }
   }
 
