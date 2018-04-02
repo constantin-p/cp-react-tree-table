@@ -118,7 +118,7 @@ Props for `TreeDataTable`:
 
 | Prop                | Type       | Required | Description              |
 |---------------------|------------|----------|------------------------  | 
-| **`data`**          | _Array_    | `yes`    | List of data items       | 
+| **`data`**          | _Array<[`TreeDataRow`](https://github.com/constantin-p/cp-react-tree-table#treedatarow-object-type)>_    | `yes`    | List of data items       | 
 | **`height`**        | _Number_   | no       | Table height (px) \*     |
 | **`className`**     | _String_   | no       | Table custom class \*\*  |
 
@@ -147,7 +147,7 @@ _**\* `renderCell(rowData, rowMetadata, toggleChildren) => Node`**:_
 
 
 
-## [`TreeDataRow`](https://github.com/constantin-p/cp-react-tree-table/blob/c41f609cd806d2b2b15acf45ab120148691d0519/src/model/row.js#L5) Object type
+### [`TreeDataRow`](https://github.com/constantin-p/cp-react-tree-table/blob/c41f609cd806d2b2b15acf45ab120148691d0519/src/model/row.js#L5) Object type
 Properties:
 
 |                   | Type       | Required | Description              |
