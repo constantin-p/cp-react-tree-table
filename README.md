@@ -119,13 +119,16 @@ Props for `TreeDataTable`:
 | Prop                | Type       | Required | Description              |
 |---------------------|------------|----------|------------------------  | 
 | **`data`**          | _Array<[`TreeDataRow`](https://github.com/constantin-p/cp-react-tree-table#treedatarow-object-type)>_    | `yes`    | List of data items       | 
-| **`height`**        | _Number_   | no       | Table height (px) \*     |
-| **`className`**     | _String_   | no       | Table custom class \*\*  |
+| **`height`**        | _Number_   | no       | Table height (px) \*         |
+| **`rowHeight`**     | _Number_   | no       | Default row height (px) \*\* |
+| **`className`**     | _String_   | no       | Table custom class \*\*\*    |
 
 
 _**\* Table height:** default `200`._
 
-_**\*\* Table custom class:** will be appended to the classList of `TreeDataTable`'s root element._
+_**\*\* Default row height:** will be used for items (`TreeDataRow`) that don't specify their height property._
+
+_**\*\*\* Table custom class:** will be appended to the classList of `TreeDataTable`'s root element._
 
 
 Props for `TreeDataTable.Column`:
@@ -156,7 +159,7 @@ Properties:
 | **`height`**      | _Number_   | no       | Row height (px) \*       |
 | **`children`**    | _Array<[`TreeDataRow`](https://github.com/constantin-p/cp-react-tree-table#treedatarow-object-type)>_   | no       | List of children data items |
 
-_**\* Row height:** default `26`px._
+_**\* Row height:** defaults to `26`px if `TreeDataTable`'s property `rowHeight` is not set._
 
 
 
