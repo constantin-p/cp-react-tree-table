@@ -225,6 +225,7 @@ header .install p::before {
   cursor: pointer;
   padding: 3px;
   border-radius: 3px;
+  user-select: none;
 }
 
 .demo-tree-table .cell-wrapper .toggle-button:hover {

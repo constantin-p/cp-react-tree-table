@@ -13,6 +13,7 @@ type State = { };
 export default class DemoApp extends Component<Props, State> {
   render () {
     const { data, count } = generateData();
+
     return (
       <div className="wrapper">
 
@@ -46,7 +47,7 @@ export default class DemoApp extends Component<Props, State> {
         </header>
         
         <p>Row count: <span>{count}</span>.</p>
-        <TreeDataTable data={data} height={500} className="demo-tree-table">
+        <TreeDataTable data={data} height={500} rowHeight={30} className="demo-tree-table">
           <TreeDataTable.Column grow={0} basis="200px" renderCell={this.renderIndexColumn} />
           <TreeDataTable.Column grow={1} renderCell={this.renderColumn} />
         </TreeDataTable>
@@ -56,7 +57,7 @@ export default class DemoApp extends Component<Props, State> {
 
   renderIndexColumn = (data: any, metadata: RowMetadata, toggleChildren: () => void) => {
     return (
-      <div className="cell-wrapper" style={{ paddingLeft: `${(metadata.depth * 25)}px`, backgroundColor: this._computeBg(data.height) }}>
+      <div className="cell-wrapper" style={{ paddingLeft: `${(metadata.depth * 25)}px`, backgroundColor: this._computeBg(data.heightLabel) }}>
         <span className="toggle-button-wrapper" style={{ width: '80px'}}>
           {(metadata.hasChildren)
             ? (
@@ -74,8 +75,8 @@ export default class DemoApp extends Component<Props, State> {
   
   renderColumn = (data: any, metadata: RowMetadata, toggleChildren: () => void) => {
     return (
-      <div className="cell-wrapper" style={{ backgroundColor: this._computeBg(data.height) }}>
-        <span>Height: {data.height}.</span>
+      <div className="cell-wrapper" style={{ backgroundColor: this._computeBg(data.heightLabel) }}>
+        <span>Height: {data.heightLabel}.</span>
       </div>
     );
   }
