@@ -20,7 +20,7 @@ export default class Row {
 
   _hasChildren: boolean;
 
-  _height: number = 26;    // height in px
+  _height: number = 26;    // height in px (26px - fallback value)
   _cacheHeight: number = 26;
 
   constructor(data: any, hasChildren: boolean, depth: number = 0, isVisible: boolean, height: ?number) {

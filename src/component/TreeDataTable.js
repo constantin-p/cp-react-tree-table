@@ -17,7 +17,8 @@ type Props = {
   data: Array<TreeDataRow>,
   children: ChildrenArray<Element<typeof Column>>,
 
-  height: ?number,
+  height?: number,
+  rowHeight?: number,
   className?: string,
 };
 
@@ -30,9 +31,10 @@ export default class TreeDataTable extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    const { rowHeight } = props;
 
     this.state = {
-      root: new BTRoot(processData(this.props.data))
+      root: new BTRoot(processData(this.props.data, rowHeight)),
     };
   }
 

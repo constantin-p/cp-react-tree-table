@@ -3,19 +3,19 @@ import Row from '../model/row';
 import type { TreeDataRow  } from '../model/row';
 
 
-export const processData = (data: Array<TreeDataRow>) => {
-  return processLevel(data, 0, true);
+export const processData = (data: Array<TreeDataRow>, rowHeightDefault: ?number = null) => {
+  return processLevel(data, rowHeightDefault, 0, true);
 }
 
-const processLevel = (data: Array<TreeDataRow>, depth: number = 0, isVisible: boolean = false) => {
+const processLevel = (data: Array<TreeDataRow>, rowHeightDefault: ?number, depth: number = 0, isVisible: boolean = false) => {
   let result = [];
   for (var i = 0; i < data.length; i++) {
     const hasChildren: boolean = (data[i].children != null && data[i].children.length > 0);
 
-    result.push(new Row(data[i].data, hasChildren, depth, isVisible, data[i].height));
+    result.push(new Row(data[i].data, hasChildren, depth, isVisible, data[i].height || rowHeightDefault));
 
     if (data[i].children && data[i].children.length > 0) {
-      processLevel(data[i].children, depth + 1).forEach((row) => {
+      processLevel(data[i].children, rowHeightDefault, depth + 1).forEach((row) => {
         result.push(row);
       });
     }
