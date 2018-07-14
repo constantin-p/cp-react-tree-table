@@ -14,6 +14,7 @@ type Props = {
 
   height: number,
   onToggle: (row: Row) => void,
+  onScroll: (scrollTop: number) => void,
   className?: string,
 };
 
@@ -65,7 +66,6 @@ export default class VirtualList extends Component<Props, State> {
           <VirtualListRow
             row={row}
             columns={columns}
-
             index={relativeIndex}
             key={relativeIndex++}
             onToggle={() => onToggle(row)}/>
@@ -85,6 +85,7 @@ export default class VirtualList extends Component<Props, State> {
             {visibleRows}
           </div>
         </div>
+
       </div>
     );
   }
@@ -92,8 +93,12 @@ export default class VirtualList extends Component<Props, State> {
 
   // virtual scroll
   handleScroll = () => {
+    const { onScroll } = this.props;
+
     if (this.container) {
       const { scrollTop } = this.container;
+
+      onScroll(scrollTop);
 
       this.setState({
         topOffset: scrollTop

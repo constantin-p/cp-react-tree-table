@@ -31,3 +31,5 @@ export const indexOf = (needle: any, haystack: Array<any>): number => {
   }
   return -1;
 }
+
+export const noop = () => undefined;

@@ -9,7 +9,7 @@ import BTRoot from '../model/bt_root';
 import Row from '../model/row';
 import type { TreeDataRow  } from '../model/row';
 
-import { processData } from '../util';
+import { processData, noop } from '../util';
 
 
 
@@ -19,6 +19,7 @@ type Props = {
 
   height?: number,
   rowHeight?: number,
+  onScroll?: (scrollTop: number) => void,
   className?: string,
 };
 
@@ -39,7 +40,7 @@ export default class TreeDataTable extends Component<Props, State> {
   }
 
   render() {
-    const { height, children, className } = this.props;
+    const { height, children, onScroll, className } = this.props;
 
     const baseClass = className ? `cp_tree-table ${className}`: 'cp_tree-table';
     return (
@@ -48,6 +49,8 @@ export default class TreeDataTable extends Component<Props, State> {
 
         height={height || 200}
         root={this.state.root}
+        
+        onScroll={onScroll || noop}
         onToggle={(row) => this.handleOnToggle(row)}/>
     );
   }

@@ -119,16 +119,21 @@ Props for `TreeDataTable`:
 | Prop                | Type       | Required | Description              |
 |---------------------|------------|----------|------------------------  | 
 | **`data`**          | _Array<[`TreeDataRow`](https://github.com/constantin-p/cp-react-tree-table#treedatarow-object-type)>_    | `yes`    | List of data items       | 
-| **`height`**        | _Number_   | no       | Table height (px) \*         |
-| **`rowHeight`**     | _Number_   | no       | Default row height (px) \*\* |
-| **`className`**     | _String_   | no       | Table custom class \*\*\*    |
+| **`height`**        | _Number_   | no       | Table height (px) \*               |
+| **`rowHeight`**     | _Number_   | no       | Default row height (px) \*\*       |
+| **`onScroll`**      | _Function_ | no       | Callback for `scroll` event \*\*\* |
+| **`className`**     | _String_   | no       | Table custom class \*\*\*\*        |
 
 
 _**\* Table height:** default `200`._
 
 _**\*\* Default row height:** will be used for items (`TreeDataRow`) that don't specify their height property._
 
-_**\*\*\* Table custom class:** will be appended to the classList of `TreeDataTable`'s root element._
+_**\*\*\* `onScroll(scrollTop)`**:_
+
+  * **`scrollTop`**: (`number`) The number of pixels that the table's content is scrolled vertically.
+
+_**\*\*\*\* Table custom class:** will be appended to the classList of `TreeDataTable`'s root element._
 
 
 Props for `TreeDataTable.Column`:
