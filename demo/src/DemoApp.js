@@ -47,7 +47,13 @@ export default class DemoApp extends Component<Props, State> {
         </header>
         
         <p>Row count: <span>{count}</span>.</p>
-        <TreeDataTable data={data} height={500} rowHeight={30} className="demo-tree-table">
+        <TreeDataTable
+          onScroll={(scrollTop) => {console.dir(scrollTop)}}
+          data={data}
+          height={500}
+          rowHeight={30}
+          className="demo-tree-table"
+        >
           <TreeDataTable.Column grow={0} basis="200px" renderCell={this.renderIndexColumn} />
           <TreeDataTable.Column grow={1} renderCell={this.renderColumn} />
         </TreeDataTable>

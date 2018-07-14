@@ -11,7 +11,6 @@ import Row from '../model/row';
 type Props = {
   root: BTRoot,
   columns: ChildrenArray<Element<typeof Column>>,
-
   height: number,
   onToggle: (row: Row) => void,
   className?: string,
@@ -47,7 +46,7 @@ export default class VirtualList extends Component<Props, State> {
   }
 
   render() {
-    const { root, columns, onToggle, className } = this.props;
+    const { root, columns, onToggle, className, onScroll } = this.props;
     const { overscanHeight, height, topOffset } = this.state;
 
     const startY =  Math.max(0, topOffset - overscanHeight);
@@ -65,7 +64,6 @@ export default class VirtualList extends Component<Props, State> {
           <VirtualListRow
             row={row}
             columns={columns}
-
             index={relativeIndex}
             key={relativeIndex++}
             onToggle={() => onToggle(row)}/>
@@ -78,7 +76,6 @@ export default class VirtualList extends Component<Props, State> {
         style={{ ...STYLE_LIST, height: this.props.height + 'px', }}
         ref={elem => {this.container = elem}}
         onScroll={this.handleScroll}>
-
         <div style={{ ...STYLE_WRAPPER, height: (root.getHeight()) + 'px', }}>
           <div style={{ ...STYLE_CONTENT, top: (contentTopOffset) + 'px' }}
             className="cp_tree-table_mover">
@@ -92,8 +89,14 @@ export default class VirtualList extends Component<Props, State> {
 
   // virtual scroll
   handleScroll = () => {
+    const {onScroll} = this.props;
+
     if (this.container) {
       const { scrollTop } = this.container;
+
+      if (onScroll) {
+        onScroll(scrollTop)
+      }
 
       this.setState({
         topOffset: scrollTop

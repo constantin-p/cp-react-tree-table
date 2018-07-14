@@ -39,7 +39,7 @@ export default class TreeDataTable extends Component<Props, State> {
   }
 
   render() {
-    const { height, children, className } = this.props;
+    const { height, children, className, onScroll } = this.props;
 
     const baseClass = className ? `cp_tree-table ${className}`: 'cp_tree-table';
     return (
@@ -48,6 +48,7 @@ export default class TreeDataTable extends Component<Props, State> {
 
         height={height || 200}
         root={this.state.root}
+        onScroll={onScroll}
         onToggle={(row) => this.handleOnToggle(row)}/>
     );
   }
