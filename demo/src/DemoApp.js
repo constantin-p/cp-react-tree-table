@@ -47,13 +47,11 @@ export default class DemoApp extends Component<Props, State> {
         </header>
         
         <p>Row count: <span>{count}</span>.</p>
-        <TreeDataTable
-          onScroll={(scrollTop) => {console.dir(scrollTop)}}
+        <TreeDataTable className="demo-tree-table"
           data={data}
           height={500}
           rowHeight={30}
-          className="demo-tree-table"
-        >
+          onScroll={this.handleOnScroll}>
           <TreeDataTable.Column grow={0} basis="200px" renderCell={this.renderIndexColumn} />
           <TreeDataTable.Column grow={1} renderCell={this.renderColumn} />
         </TreeDataTable>
@@ -85,6 +83,10 @@ export default class DemoApp extends Component<Props, State> {
         <span>Height: {data.heightLabel}.</span>
       </div>
     );
+  }
+
+  handleOnScroll = (scrollTop: number) => {
+    console.log('Scroll top: ', scrollTop);
   }
 
   _computeBg = (heightKey: string) => {
