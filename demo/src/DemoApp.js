@@ -10,9 +10,22 @@ import { generateData } from './mockData';
 type Props = { };
 type State = { };
 
+const DATA = generateData();
+
 export default class DemoApp extends Component<Props, State> {
+  table: ?TreeDataTable;
+
+  componentDidMount() {
+    const objToMatch = DATA.data[500].children[1].children[0];
+    
+    if (this.table) {
+      this.table.scrollIntoView(objToMatch);
+      console.log('scrollIntoView:', objToMatch);
+    }
+  }
+
   render () {
-    const { data, count } = generateData();
+    const { data, count } = DATA;
 
     return (
       <div className="wrapper">
@@ -48,6 +61,7 @@ export default class DemoApp extends Component<Props, State> {
         
         <p>Row count: <span>{count}</span>.</p>
         <TreeDataTable className="demo-tree-table"
+          ref={elem => {this.table = elem}}
           data={data}
           height={500}
           rowHeight={30}

@@ -8,6 +8,7 @@ import VirtualListRow from './VirtualListRow';
 import BTRoot from '../model/bt_root';
 import Row from '../model/row';
 
+
 type Props = {
   root: BTRoot,
   columns: ChildrenArray<Element<typeof Column>>,
@@ -35,16 +36,16 @@ export default class VirtualList extends Component<Props, State> {
   container: ?HTMLElement;
 
   componentDidUpdate() {
-    this.setHeight();
+    this._setHeight();
   }
 
   componentDidMount() {
-    this.setHeight();
-    window.addEventListener("resize", this.setHeight.bind(this));
+    this._setHeight();
+    window.addEventListener("resize", this._setHeight);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.setHeight.bind(this));
+    window.removeEventListener("resize", this._setHeight);
   }
 
   render() {
@@ -77,7 +78,7 @@ export default class VirtualList extends Component<Props, State> {
       <div className={className}
         style={{ ...STYLE_LIST, height: this.props.height + 'px', }}
         ref={elem => {this.container = elem}}
-        onScroll={this.handleScroll}>
+        onScroll={this._handleScroll}>
 
         <div style={{ ...STYLE_WRAPPER, height: (root.getHeight()) + 'px', }}>
           <div style={{ ...STYLE_CONTENT, top: (contentTopOffset) + 'px' }}
@@ -90,9 +91,14 @@ export default class VirtualList extends Component<Props, State> {
     );
   }
 
+  scrollTop(posY: number = 0) {
+    if (this.container) {
+      this.container.scrollTop = posY;
+    }
+  }
 
   // virtual scroll
-  handleScroll = () => {
+  _handleScroll = () => {
     const { onScroll } = this.props;
 
     if (this.container) {
@@ -107,7 +113,7 @@ export default class VirtualList extends Component<Props, State> {
   }
 
   // virtual scroll
-  setHeight = () => {
+  _setHeight = () => {
     const { height } = this.state;
     
     if (this.container) {
