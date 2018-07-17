@@ -167,6 +167,17 @@ Properties:
 _**\* Row height:** defaults to `26`px if `TreeDataTable`'s property `rowHeight` is not set._
 
 
+## Public Methods
+
+_**`scrollTo(posY: number)`**_
+  - Scrolls the content of the table to a given position (px).
+
+_**`scrollIntoView(node: TreeDataRow, expandAncestors: boolean = true)`**_
+  - Scrolls the row representing the given node into view
+  - For **`expandAncestors`** set to `true`, the parents of the given node will expand their content. When set to `false` the state of the table will remain untouched & the row representing the first visible node down the list will be scrolled into view.
+
+These methods can be accessed by acquiring a [reference](https://reactjs.org/docs/refs-and-the-dom.html) to **`TreeDataTable`**.
+
 
 ## License
 
