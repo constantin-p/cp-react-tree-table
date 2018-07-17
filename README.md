@@ -33,7 +33,11 @@ import TreeDataTable from 'cp-react-tree-table';
 
 ### Example
 
-[Example Live Demo](https://jsfiddle.net/constantin_p/wzjgspe9/) (JSFiddle)
+[Example `scrollTo` functionality](http://jsfiddle.net/constantin_p/6fhxgvL9/) (JSFiddle)
+
+[Example `scrollIntoView` functionality](https://jsfiddle.net/constantin_p/fvuswrbm/) (JSFiddle)
+
+[Example Live Demo ↓](https://jsfiddle.net/constantin_p/wzjgspe9/) (JSFiddle)
 
 ```javascript
 import React, { Component } from 'react';
