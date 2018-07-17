@@ -2,6 +2,8 @@
 import Row from '../model/row';
 import type { TreeDataRow  } from '../model/row';
 
+export * from './search';
+
 
 export const processData = (data: Array<TreeDataRow>, rowHeightDefault: ?number = null) => {
   return processLevel(data, rowHeightDefault, 0, true);
