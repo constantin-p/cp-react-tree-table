@@ -31,7 +31,7 @@ import TreeDataTable from 'cp-react-tree-table';
 ```
 
 
-### Example
+### Examples
 
 [Example `scrollTo` functionality](http://jsfiddle.net/constantin_p/6fhxgvL9/) (JSFiddle)
 
