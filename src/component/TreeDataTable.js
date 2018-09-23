@@ -12,6 +12,10 @@ import type { TreeDataRow  } from '../model/row';
 import { processData, noop, findNodeData } from '../util';
 
 
+type TreeChange = {
+  root: BTRoot,
+  hasChange: boolean,
+};
 
 type Props = {
   data: Array<TreeDataRow>,
@@ -43,7 +47,7 @@ export default class TreeDataTable extends Component<Props, State> {
 
   render() {
     const { height, children, onScroll, className } = this.props;
-
+    
     const baseClass = className ? `cp_tree-table ${className}`: 'cp_tree-table';
     return (
       <VirtualList className={baseClass}
@@ -85,11 +89,28 @@ export default class TreeDataTable extends Component<Props, State> {
           }
         }
 
-        ancestors.forEach((row: Row) => this._handleOnToggle(row));
-      }
+        // Batch changes
+        let currentRoot = root;
+        let hasChange: boolean = false;
+        for (var i = 0; i < ancestors.length; i++) {
+          const currentRow = ancestors[i];
+          const delta = this._toggleRow(currentRoot, currentRow);
 
-      const posY = root.getYAtIndex(rowIndex);
-      this.scrollTo(posY);
+          if (!hasChange) {
+            hasChange = delta.hasChange;
+          }
+        }
+
+        if (hasChange) {
+          this.setState({ root: currentRoot }, () => {
+            const posY = root.getYAtIndex(rowIndex);
+            this.scrollTo(posY);
+          });
+        }
+      } else {
+        const posY = root.getYAtIndex(rowIndex);
+        this.scrollTo(posY);
+      }
     }
   }
 
@@ -102,6 +123,14 @@ export default class TreeDataTable extends Component<Props, State> {
 
   _handleOnToggle = (row: Row) => {
     const { root } = this.state;
+
+    const delta = this._toggleRow(root, row);
+    if (delta.hasChange) {
+      this.setState({ root: delta.root });
+    }
+  }
+
+  _toggleRow = (root: BTRoot, row: Row): TreeChange => {
     const currentDepth = row.depth;
     let rowIndex = Math.min(root.getRowIndex(row) + 1, root.getSize());
 
@@ -126,8 +155,10 @@ export default class TreeDataTable extends Component<Props, State> {
         return true;
       }
     });
-    if (hasChange) {
-      this.setState({ root: root });
-    }
+
+    return {
+      root: root,
+      hasChange: hasChange,
+    };
   }
 }
