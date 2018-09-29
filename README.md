@@ -97,7 +97,9 @@ export default class DemoApp extends Component {
         <span className="toggle-button-wrapper" style={{ width: '80px'}}>
           {(metadata.hasChildren)
             ? (
-                <span onClick={toggleChildren}>[toggle]</span>
+                <span onClick={toggleChildren}>
+                  [toggle{(metadata.hasVisibleChildren) ? '-' : '+' }]
+                </span>
               )
             : ''
           }
@@ -155,6 +157,7 @@ _**\* `renderCell(rowData, rowMetadata, toggleChildren) => Node`**:_
   * **`rowMetadata`**: Metadata object describing the item state:
     * **`depth`**: (`number`) Starts from 0, indicates the depth level of the item inside the tree.
     * **`hasChildren`**: (`boolean`)
+    * **`hasVisibleChildren`** (`boolean`)
   * **`toggleChildren`**: Callback function that will toggle direct descendants of the item.
 
 
