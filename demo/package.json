@@ -1,6 +1,6 @@
 {
   "name": "cp-react-tree-table-demo",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "homepage": "https://constantin-p.github.io/cp-react-tree-table",
   "scripts": {
@@ -11,7 +11,7 @@
     "flow": "flow"
   },
   "dependencies": {
-    "cp-react-tree-table": "^0.5.1",
+    "cp-react-tree-table": "^0.6.0",
     "flow-bin": "^0.63.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
