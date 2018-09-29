@@ -10,6 +10,8 @@ type Props = {
   row: any,
   columns: ChildrenArray<Element<typeof Column>>,
 
+  hasVisibleChildren: boolean, // Metadata
+
   index: number,
   onToggle: () => void,
 };
@@ -29,7 +31,9 @@ export default class VirtualListRow extends Component<Props, State> {
   };
 
   render() {
-    const { row, index, onToggle, columns } = this.props;
+    const { row, hasVisibleChildren, index, onToggle, columns } = this.props;
+
+    const metadata = { ...row.getMetadata(), hasVisibleChildren: hasVisibleChildren };
 
     return (
       <div className="cp_tree-table_row"
@@ -44,7 +48,7 @@ export default class VirtualListRow extends Component<Props, State> {
 
               rowData={row.data}
               toggle={onToggle}
-              rowMetadata={row.getMetadata()}/>
+              rowMetadata={metadata}/>
           );
         })}
       </div>

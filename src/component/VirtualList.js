@@ -25,6 +25,11 @@ type State = {
   topOffset: number,
 };
 
+type RowData = {
+  row: Row,
+  hasVisibleChildren: boolean,
+};
+
 export default class VirtualList extends Component<Props, State> {
 
   state = {
@@ -60,18 +65,36 @@ export default class VirtualList extends Component<Props, State> {
 
     const contentTopOffset =  root.getYAtIndex(startIndex);
 
-    let visibleRows = [], relativeIndex = 0;
+    let visibleRowsData: Array<RowData> = [], lastVisibleRowIndex;
     root.mapRange(startIndex, endIndex - startIndex, (row: Row) => {
       if (row.isVisible()) {
-        visibleRows.push(
-          <VirtualListRow
-            row={row}
-            columns={columns}
-            index={relativeIndex}
-            key={relativeIndex++}
-            onToggle={() => onToggle(row)}/>
-        );
+        if (lastVisibleRowIndex != null && !visibleRowsData[lastVisibleRowIndex].hasVisibleChildren) {
+          const data = visibleRowsData[lastVisibleRowIndex];
+          
+          if (data != null && data.row.depth === row.depth - 1 && !data.hasVisibleChildren) {
+            visibleRowsData[lastVisibleRowIndex].hasVisibleChildren = true;
+          }
+        }
+
+        lastVisibleRowIndex = visibleRowsData.length;
+        visibleRowsData.push({
+          row: row,
+          hasVisibleChildren: false,
+        });
       }
+    });
+
+    let visibleRows = [], relativeIndex = 0;
+    visibleRowsData.forEach((data: RowData) => {
+      visibleRows.push(
+        <VirtualListRow
+          row={data.row}
+          columns={columns}
+          hasVisibleChildren={data.hasVisibleChildren}
+          index={relativeIndex}
+          key={relativeIndex++}
+          onToggle={() => onToggle(data.row)}/>
+      );
     });
 
     return (

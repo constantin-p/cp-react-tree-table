@@ -11,6 +11,12 @@ export type TreeDataRow = {
 export type RowMetadata = {
   depth: number;
   hasChildren: boolean;
+  hasVisibleChildren: boolean;
+};
+
+export type PartialRowMetadata = {
+  depth: number;
+  hasChildren: boolean;
 };
 
 export default class Row {
@@ -53,7 +59,7 @@ export default class Row {
     return this._height > 0;
   }
 
-  getMetadata(): RowMetadata {
+  getMetadata(): PartialRowMetadata {
     return {
       depth: this.depth,
       hasChildren: this._hasChildren,

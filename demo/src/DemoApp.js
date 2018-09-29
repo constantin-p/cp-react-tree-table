@@ -54,7 +54,7 @@ export default class DemoApp extends Component<Props, State> {
           height={500}
           rowHeight={30}
           onScroll={this.handleOnScroll}>
-          <TreeDataTable.Column grow={0} basis="200px" renderCell={this.renderIndexColumn} />
+          <TreeDataTable.Column grow={0} basis="210px" renderCell={this.renderIndexColumn} />
           <TreeDataTable.Column grow={1} renderCell={this.renderColumn} />
         </TreeDataTable>
       </div>
@@ -68,7 +68,7 @@ export default class DemoApp extends Component<Props, State> {
           {(metadata.hasChildren)
             ? (
                 <span className="toggle-button"
-                  onClick={toggleChildren}>[toggle]</span>
+                  onClick={toggleChildren}>[toggle{(metadata.hasVisibleChildren) ? '-' : '+' }]</span>
               )
             : ''
           }
