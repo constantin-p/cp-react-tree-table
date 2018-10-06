@@ -121,6 +121,91 @@ export default class TreeDataTable extends Component<Props, State> {
     }
   }
 
+  // Makes rows in the given range that don't represent root nodes (row.depth == 0) visible
+  _showRowsInRange(from?: number, to?: number) {
+    const { root } = this.state;
+
+    let _from = (from != null) ? from : 0;
+    let _to = (to != null) ? to : root.getSize();
+
+    // Validation
+    if (!this._isOpRangeValid(_from, _to)) {
+      return;
+    }
+
+    // Expand op
+    let hasChange: boolean = false;
+    root.mapRange(_from, _to, (row: Row) => {
+      if (row.depth > 0 && !row.isVisible()) {
+        row.show();
+        hasChange = true;
+      }
+    });
+
+    if (hasChange) {
+      this.setState({ root: root });
+    }
+  }
+
+  // Public API
+  expandAll() { // _showRowsInRange alias with the default arguments
+    this._showRowsInRange();
+  }
+
+  // Hides rows in the given range that don't represent root nodes (row.depth == 0)
+  _hideRowsInRange(from?: number, to?: number) {
+    const { root } = this.state;
+
+    let _from = (from != null) ? from : 0;
+    let _to = (to != null) ? to : root.getSize();
+
+    // Validation
+    if (!this._isOpRangeValid(_from, _to)) {
+      return;
+    }
+
+    // Expand op
+    let hasChange: boolean = false;
+    root.mapRange(_from, _to, (row: Row) => {
+      if (row.depth > 0 && row.isVisible()) {
+        row.hide();
+        hasChange = true;
+      }
+    });
+
+    if (hasChange) {
+      this.setState({ root: root });
+    }
+  }
+
+  // Public API
+  collapseAll() { // _hideRowsInRange alias with the default arguments
+    this._hideRowsInRange();
+  }
+
+  _isOpRangeValid(from: number, to: number): boolean {
+    const { root } = this.state;
+    const maxTo = root.getSize();
+    // Validation
+    if (from < 0) {
+      console.warn('Invalid range: from < 0');
+      return false;
+    }
+    if (from > maxTo) {
+      console.warn('Invalid range: from > max size');
+      return false;
+    }
+    if (to > maxTo) {
+      console.warn('Invalid range: to > max size');
+      return false;
+    }
+    if (from > to) {
+      console.warn('Invalid range: to > from');
+      return false;
+    }
+    return true;
+  }
+
   _handleOnToggle = (row: Row) => {
     const { root } = this.state;
 

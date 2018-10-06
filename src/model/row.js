@@ -68,11 +68,19 @@ export default class Row {
 
   toggle(): void {
     if (this._height > 0) {
-      this._cacheHeight = this._height;
-      this._updateHeight(0);
+      this.hide();
     } else {
-      this._updateHeight(this._cacheHeight);
+      this.show();
     }
+  }
+
+  hide(): void {
+    this._cacheHeight = this._height;
+    this._updateHeight(0);
+  }
+
+  show(): void {
+    this._updateHeight(this._cacheHeight);
   }
 
   _updateHeight(value: number) {
