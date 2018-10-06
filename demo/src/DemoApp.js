@@ -13,6 +13,8 @@ type State = { };
 const DATA = generateData();
 
 export default class DemoApp extends Component<Props, State> {
+  tableRef: ?TreeDataTable; 
+
   render () {
     const { data, count } = DATA;
 
@@ -48,8 +50,13 @@ export default class DemoApp extends Component<Props, State> {
           </div>
         </header>
         
-        <p>Row count: <span>{count}</span>.</p>
+        <p className="controls">
+          Row count: <span>{count}</span>.
+          <button onClick={this.handleOnExpandAll}>Expand all</button>
+          <button onClick={this.handleOnCollapseAll}>Collapse all</button>
+        </p>
         <TreeDataTable className="demo-tree-table"
+          ref={elem => {this.tableRef = elem}}
           data={data}
           height={500}
           rowHeight={30}
@@ -89,6 +96,20 @@ export default class DemoApp extends Component<Props, State> {
 
   handleOnScroll = (scrollTop: number) => {
     console.log('Scroll top: ', scrollTop);
+  }
+
+  handleOnExpandAll = () => {
+    console.log('Expand all');
+    if (this.tableRef != null) {
+      this.tableRef.expandAll();
+    }
+  }
+
+  handleOnCollapseAll = () => {
+    console.log('Collapse all');
+    if (this.tableRef != null) {
+      this.tableRef.collapseAll();
+    }
   }
 
   _computeBg = (heightKey: string) => {

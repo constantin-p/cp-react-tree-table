@@ -27,6 +27,12 @@ a:active {
   text-decoration: none;
 }
 
+button,
+button:focus,
+button:hover,
+button:active {
+  outline: none;
+}
 
 .wrapper { 
   min-height: 100vh;
@@ -74,7 +80,7 @@ header .links a {
 }
 
 header .links .name {
-  color: #999;
+  color: rgba(0, 0, 0, .4);
   font-weight: 400;
   font-family: 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, Courier, monospace;
 }
@@ -124,7 +130,7 @@ header .install {
 }
 
 header .install p {
-  background: #f6f6f7;
+  background: #f5f5f5;
   padding: 1rem;
   font-family: 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, Courier, monospace;
 }
@@ -184,6 +190,29 @@ header .install p::before {
   }
 }
 
+
+
+/*
+ * Tree table controls
+ */
+.controls > button {
+  appearance: none;
+  background: rgba(0, 0, 0, .06);
+  border: none;
+  border-radius: 3px;
+  margin-left: 1rem;
+
+  cursor: pointer;
+  color: rgba(0,0,0,.85);
+  font-size: .7rem;
+  font-weight: 500;
+  padding: .2rem .4rem;
+}
+
+.controls > button:hover {
+  color: #0f55eb;
+  background: #edf6fc;
+}
 
 
 
