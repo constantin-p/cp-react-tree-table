@@ -183,6 +183,12 @@ _**`scrollIntoView(node: TreeDataRow, expandAncestors: boolean = true)`**_
   - Scrolls the row representing the given node into view
   - For **`expandAncestors`** set to `true`, the parents of the given node will expand their content. When set to `false` the state of the table will remain untouched & the row representing the first visible node down the list will be scrolled into view.
 
+_**`expandAll()`**_
+  - Expands all the tree nodes.
+
+_**`collapseAll()`**_
+  - Collapses all the tree nodes.
+
 These methods can be accessed by acquiring a [reference](https://reactjs.org/docs/refs-and-the-dom.html) to **`TreeDataTable`**.
 
 
