@@ -57,7 +57,8 @@ export default class VirtualList extends Component<Props, State> {
     const { root, columns, onToggle, className } = this.props;
     const { overscanHeight, height, topOffset } = this.state;
 
-    const startY = Math.min(root.getHeight() - height - (overscanHeight * 2), Math.max(0, topOffset - overscanHeight));
+    const startYMax = Math.max(0, root.getHeight() - height - (overscanHeight * 2));
+    const startY = Math.min(startYMax, Math.max(0, topOffset - overscanHeight));
     let startIndex = root.getIndexAtY(startY);
 
     const endY = Math.min(root.getHeight(), topOffset + height + overscanHeight);
