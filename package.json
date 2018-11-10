@@ -1,7 +1,7 @@
 {
   "name": "cp-react-tree-table",
   "umdName": "TreeDataTable",
-  "version": "0.7.2",
+  "version": "0.8.1",
   "main": "dist/index.js",
   "umd": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.1",
+    "babel-eslint": "^9.0.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
@@ -47,7 +47,7 @@
     "gh-pages": "^1.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "^1.1.4",
+    "react-scripts": "^2.1.1",
     "rollup": "^0.54.0",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-commonjs": "^8.2.1",
