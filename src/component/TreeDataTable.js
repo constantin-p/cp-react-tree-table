@@ -122,7 +122,9 @@ export default class TreeDataTable extends Component<Props, State> {
   }
 
   // Makes rows in the given range that don't represent root nodes (row.depth == 0) visible
-  _showRowsInRange(from?: number, to?: number) {
+  // @param depthLimit: (inclusive) If set, only nodes with their depth value
+  //    less than or equal to the given value will be made visible 
+  _showRowsInRange(from?: number, to?: number, depthLimit?: number) {
     const { root } = this.state;
 
     let _from = (from != null) ? from : 0;
@@ -137,8 +139,11 @@ export default class TreeDataTable extends Component<Props, State> {
     let hasChange: boolean = false;
     root.mapRange(_from, _to, (row: Row) => {
       if (row.depth > 0 && !row.isVisible()) {
-        row.show();
-        hasChange = true;
+        // If a depthLimit value is set, only show nodes with a depth value less or equal
+        if (depthLimit == null || (depthLimit != null && row.depth <= depthLimit)) {
+          row.show();
+          hasChange = true;
+        }
       }
     });
 
@@ -148,8 +153,8 @@ export default class TreeDataTable extends Component<Props, State> {
   }
 
   // Public API
-  expandAll() { // _showRowsInRange alias with the default arguments
-    this._showRowsInRange();
+  expandAll(depthLimit?: number) { // _showRowsInRange alias with default arguments for range
+    this._showRowsInRange(undefined, undefined, depthLimit);
   }
 
   // Hides rows in the given range that don't represent root nodes (row.depth == 0)
