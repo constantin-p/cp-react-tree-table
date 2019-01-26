@@ -12,8 +12,9 @@ type Props = {
   rowData: any,
   rowMetadata: RowMetadata,
   toggle: () => void,
+  update: (newData: any) => void,
 
-  renderCell: (rowData: any, rowMetadata: RowMetadata, toggleChildren: () => void) => Node,
+  renderCell: (rowData: any, rowMetadata: RowMetadata, toggleChildren: () => void, updateRowData: (newData: any) => void) => Node,
   className?: string,
 };
 
@@ -29,7 +30,7 @@ export default class ColumnWrapper extends Component<Props, State> {
   };
 
   render() {
-    const { grow, basis, rowData, toggle, rowMetadata, renderCell, className } = this.props;
+    const { grow, basis, rowData, toggle, update, rowMetadata, renderCell, className } = this.props;
     const { _grow, _basis } = this.state;
 
     const flexGrow = (grow != null) ? grow : _grow;
@@ -39,7 +40,7 @@ export default class ColumnWrapper extends Component<Props, State> {
     return (
       <div className={baseClass}
         style={{ ...STYLE_COLUMN, flexGrow: flexGrow, flexBasis: flexBasis }}>
-        { renderCell(rowData, rowMetadata, toggle) }
+        { renderCell(rowData, rowMetadata, toggle, update) }
       </div>
     );
   }

@@ -14,6 +14,7 @@ type Props = {
 
   index: number,
   onToggle: () => void,
+  onUpdate: (newData: any) => void,
 };
 
 type State = {
@@ -31,7 +32,7 @@ export default class VirtualListRow extends Component<Props, State> {
   };
 
   render() {
-    const { row, hasVisibleChildren, index, onToggle, columns } = this.props;
+    const { row, hasVisibleChildren, index, onToggle, onUpdate, columns } = this.props;
 
     const metadata = { ...row.getMetadata(), hasVisibleChildren: hasVisibleChildren };
 
@@ -48,6 +49,7 @@ export default class VirtualListRow extends Component<Props, State> {
 
               rowData={row.data}
               toggle={onToggle}
+              update={onUpdate}
               rowMetadata={metadata}/>
           );
         })}

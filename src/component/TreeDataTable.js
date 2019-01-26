@@ -59,7 +59,8 @@ export default class TreeDataTable extends Component<Props, State> {
         root={this.state.root}
         
         onScroll={onScroll || noop}
-        onToggle={(row) => this._handleOnToggle(row)}/>
+        onToggle={(row) => this._handleOnToggle(row)}
+        onUpdate={(row, newData) => this._handleOnUpdate(row, newData)}/>
     );
   }
 
@@ -209,6 +210,14 @@ export default class TreeDataTable extends Component<Props, State> {
       return false;
     }
     return true;
+  }
+
+  _handleOnUpdate = (row: Row, newData: any) => {
+    const { root } = this.state;
+
+    let _row = root.getRow(root.getRowIndex(row));
+    _row.data = newData;
+    this.setState({ root: root });
   }
 
   _handleOnToggle = (row: Row) => {

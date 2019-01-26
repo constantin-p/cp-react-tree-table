@@ -15,6 +15,7 @@ type Props = {
 
   height: number,
   onToggle: (row: Row) => void,
+  onUpdate: (row: Row, newData: any) => void,
   onScroll: (scrollTop: number) => void,
   className?: string,
 };
@@ -54,7 +55,7 @@ export default class VirtualList extends Component<Props, State> {
   }
 
   render() {
-    const { root, columns, onToggle, className } = this.props;
+    const { root, columns, onToggle, onUpdate, className } = this.props;
     const { overscanHeight, height, topOffset } = this.state;
 
     const startYMax = Math.max(0, root.getHeight() - height - (overscanHeight * 2));
@@ -94,7 +95,8 @@ export default class VirtualList extends Component<Props, State> {
           hasVisibleChildren={data.hasVisibleChildren}
           index={relativeIndex}
           key={relativeIndex++}
-          onToggle={() => onToggle(data.row)}/>
+          onToggle={() => onToggle(data.row)}
+          onUpdate={(newData) => onUpdate(data.row, newData)}/>
       );
     });
 

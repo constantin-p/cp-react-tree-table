@@ -9,7 +9,7 @@ type Props = {
   grow?: number,
   basis?: string, // <length> | auto
 
-  renderCell: (rowData: any, rowMetadata: RowMetadata, toggleChildren: () => void) => Node,
+  renderCell: (rowData: any, rowMetadata: RowMetadata, toggleChildren: () => void, updateRowData: (newData: any) => void) => Node,
   className?: string,
 };
 

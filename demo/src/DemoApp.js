@@ -63,6 +63,7 @@ export default class DemoApp extends Component<Props, State> {
           onScroll={this.handleOnScroll}>
           <TreeDataTable.Column grow={0} basis="210px" renderCell={this.renderIndexColumn} />
           <TreeDataTable.Column grow={1} renderCell={this.renderColumn} />
+          <TreeDataTable.Column grow={1} renderCell={this.renderInputColumn} />
         </TreeDataTable>
       </div>
     )
@@ -90,6 +91,20 @@ export default class DemoApp extends Component<Props, State> {
     return (
       <div className="cell-wrapper" style={{ backgroundColor: this._computeBg(data.heightLabel) }}>
         <span>Height: {data.heightLabel}.</span>
+      </div>
+    );
+  }
+
+  renderInputColumn = (data: any, metadata: RowMetadata, toggleChildren: () => void, updateRowData: (newData: any) => void) => {
+    console.log(data)
+    return (
+      <div className="cell-wrapper" style={{ backgroundColor: this._computeBg(data.heightLabel) }}>
+        <span>Edit: </span>
+        <input type="text" value={data.name}
+          onChange={(event) => updateRowData({
+            ...data,
+            name: event.target.value,
+          })}/>
       </div>
     );
   }
