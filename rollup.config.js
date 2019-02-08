@@ -1,25 +1,29 @@
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import resolve from 'rollup-plugin-node-resolve';
-import flow from 'rollup-plugin-flow';
 
 import pkg from './package.json';
 
+
 export default {
-  input: 'src/index.js',
+  input: 'src/index.ts',
   output: [
     {
       file: pkg.main,
       format: 'cjs'
     },
     {
-      file: pkg.umd,
-      name: pkg.umdName,
-      format: 'umd'
-    },
-    {
       file: pkg.module,
       format: 'es'
+    },
+    {
+      file: pkg.umd,
+      name: pkg.umdName,
+      format: 'umd',
+      globals: {
+        'react': 'React',
+        'react-dom': 'ReactDOM'
+      }
     }
   ],
   external: [
@@ -27,11 +31,13 @@ export default {
     'react-dom'
   ],
   plugins: [
-    flow(),
     babel({
-      exclude: 'node_modules/**'
+      exclude: 'node_modules/**',
+      extensions: ['.ts','.tsx']
     }),
-    resolve(),
+    resolve({
+      extensions: ['.ts','.tsx']
+    }),
     commonjs()
   ]
 };
