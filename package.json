@@ -1,7 +1,7 @@
 {
   "name": "cp-react-tree-table",
   "umdName": "TreeDataTable",
-  "version": "0.8.2",
+  "version": "1.0.0-alpha",
   "main": "dist/index.js",
   "umd": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -10,6 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
     "dev": "rollup -c -w",
+    "type-check": "tsc -w",
     "prepublishOnly": "npm run build",
     "predeploy": "cd demo && npm install && npm run build",
     "deploy": "gh-pages -d demo/build"
@@ -37,24 +38,22 @@
     "react": "^0.14.9 || ^15.0.0 || ^16.0.0",
     "react-dom": "^0.14.9 || ^15.0.0 || ^16.0.0"
   },
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^9.0.0",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "gh-pages": "^1.1.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-scripts": "^2.1.1",
-    "rollup": "^0.54.0",
-    "rollup-plugin-babel": "^3.0.3",
-    "rollup-plugin-commonjs": "^8.2.1",
-    "rollup-plugin-flow": "^1.1.1",
-    "rollup-plugin-node-resolve": "^3.0.2"
-  },
   "files": [
     "dist"
-  ]
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.1.0",
+    "@types/react": "^16.8.1",
+    "babel-plugin-module-resolver": "^3.1.3",
+    "react": "^16.7.0",
+    "rollup": "^1.1.2",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "typescript": "^3.3.1"
+  }
 }
