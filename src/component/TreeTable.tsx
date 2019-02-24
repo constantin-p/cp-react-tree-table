@@ -1,15 +1,39 @@
-import React, { Component } from 'react';
+import React, { Component, Children } from 'react';
+import Column, { ColumnProps } from './Column';
+import VirtualList from './VirtualList';
+import TreeState from '../model/tree-state';
 
 
-interface Props { }
+type Props = {
+  // Model properties
+  value: Readonly<TreeState>;
+  onChange?: (value: Readonly<TreeState>) => void;
 
-interface State { }
+  children: Array<React.ReactElement<Column>>;
 
+  // View properties
+  height?: number; // view height (px)
+  rowHeight?: number; // row height (px)
+  className?: string;
+}
+
+type State = { }
+
+const noopOnChange = (value: Readonly<TreeState>) => {}
 export default class TreeTable extends Component<Props, State> {
-
+  static Column = Column;
+  
   render() {
+    const { value, children, onChange, className } = this.props;
+
+    const columnsDef = Children.toArray(children).map((child: React.ReactElement<Column>) => {
+      return (child.props as unknown) as ColumnProps;
+    });
+
     return (
-      <span>TreeTable</span>
+      <div className={`cp_tree-table ${className != null && className}`}>
+        { value.hasData && <VirtualList data={value} columns={columnsDef} onChange={onChange || noopOnChange}/> }
+      </div>
     );
   }
 }

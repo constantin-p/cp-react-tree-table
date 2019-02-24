@@ -1,3 +1,6 @@
 import TreeTable from './component/TreeTable';
+import TreeState from './model/tree-state';
+import TreeRow from './model/tree-row';
 
-export default TreeTable;
+
+export { TreeTable, TreeState, TreeRow };

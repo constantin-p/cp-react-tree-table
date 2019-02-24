@@ -200,7 +200,7 @@ header .install p::before {
   background: rgba(0, 0, 0, .06);
   border: none;
   border-radius: 3px;
-  margin-left: 1rem;
+  margin-right: 1rem;
 
   cursor: pointer;
   color: rgba(0,0,0,.85);
@@ -229,7 +229,7 @@ header .install p::before {
   box-shadow: inset 0 1px 0 #DFE1E5;
 }
 
-.demo-tree-table .cell-wrapper {
+.demo-tree-table .cp_tree-table_cell {
   display: flex;
   align-items: center;
   font-weight: 300;
@@ -240,23 +240,31 @@ header .install p::before {
   font-family: 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, Courier, monospace;
 }
 
-.demo-tree-table .cell-wrapper > span {
+.demo-tree-table .cp_tree-table_cell > div {
   flex-grow: 1;
 }
 
-.demo-tree-table .cell-wrapper > span.toggle-button-wrapper {
-  flex-grow: 0;
-}
-
-.demo-tree-table .cell-wrapper .toggle-button {
+.demo-tree-table .cp_tree-table_cell .toggle-button {
   background: #f0f3f5;
   color: #0f55eb;
   cursor: pointer;
   padding: 3px;
+  border: none;
   border-radius: 3px;
   user-select: none;
 }
 
-.demo-tree-table .cell-wrapper .toggle-button:hover {
+.demo-tree-table .cp_tree-table_cell .toggle-button:hover {
   background: #edf6fc;
 }
+
+
+.demo-tree-table .cp_tree-table_row {
+  box-shadow: 0 1px 0 #f0f3f5;
+}
+
+.demo-tree-table .cp_tree-table_row.cp_tree-table_row_odd {
+  background: #f0f3f5;
+}
+
+

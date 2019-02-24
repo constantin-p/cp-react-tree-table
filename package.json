@@ -1,6 +1,6 @@
 {
   "name": "cp-react-tree-table",
-  "umdName": "TreeDataTable",
+  "umdName": "TreeTable",
   "version": "1.0.0-alpha",
   "main": "dist/index.js",
   "umd": "dist/index.umd.js",
@@ -48,6 +48,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.1.0",
     "@types/react": "^16.8.1",
+    "@types/react-dom": "^16.8.0",
     "babel-plugin-module-resolver": "^3.1.3",
     "react": "^16.7.0",
     "rollup": "^1.1.2",
