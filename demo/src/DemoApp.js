@@ -24,6 +24,7 @@ export default class DemoApp extends Component {
           onChange={this.handleOnChange}>
           <TreeTable.Column renderCell={this.renderIndexCell} basis="300px"/>
           <TreeTable.Column renderCell={this.renderCell}/>
+          <TreeTable.Column renderCell={this.renderEditableCell}/>
         </TreeTable>
         
       </div>
@@ -72,6 +73,19 @@ export default class DemoApp extends Component {
   renderCell = (row) => {
     return (
       <span>Column 2: {row.data.name}</span>
+    );
+  }
+
+  renderEditableCell = (row) => {
+    return (
+      <span>(Editable)
+        <input type="text" value={row.data.name}
+          onChange={(event) => {
+            row.updateData({
+              name: event.target.value,
+            });
+          }}/>
+      </span>
     );
   }
 }

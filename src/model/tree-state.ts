@@ -1,4 +1,4 @@
-import Row from './row';
+import Row, { RowData } from './row';
 
 
 interface TreeNode {
@@ -90,7 +90,7 @@ export default class TreeState {
     return source.data.slice(from, to);
   }
 
-  private static hideRowsInRange(source: Readonly<TreeState>, from: number = 0, to: number = source.data.length): Readonly<TreeState> {
+  private static _hideRowsInRange(source: Readonly<TreeState>, from: number = 0, to: number = source.data.length): Readonly<TreeState> {
     const startRange = TreeState.sliceRows(source, 0, from);
     let _top: number = source.data[from].$state.top;
     const updatedRange = TreeState.sliceRows(source, from, to).map((row: Row): Row => {
@@ -114,7 +114,7 @@ export default class TreeState {
     return new TreeState(startRange.concat(updatedRange, endRange));
   }
 
-  private static showRowsInRange(source: Readonly<TreeState>, from: number = 0, to: number = source.data.length, depthLimit?: number): Readonly<TreeState> {
+  private static _showRowsInRange(source: Readonly<TreeState>, from: number = 0, to: number = source.data.length, depthLimit?: number): Readonly<TreeState> {
     const startRange = TreeState.sliceRows(source, 0, from);
     let _top: number = source.data[from].$state.top;
     const updatedRange = TreeState.sliceRows(source, from, to).map((row: Row): Row => {
@@ -142,11 +142,11 @@ export default class TreeState {
   }
 
   static expandAll(source: Readonly<TreeState>, depthLimit?: number): Readonly<TreeState> {
-    return TreeState.showRowsInRange(source, undefined, undefined, depthLimit);
+    return TreeState._showRowsInRange(source, undefined, undefined, depthLimit);
   }
 
   static collapseAll(source: Readonly<TreeState>): Readonly<TreeState> {
-    return TreeState.hideRowsInRange(source);
+    return TreeState._hideRowsInRange(source);
   }
 
   static toggleChildren(source: Readonly<TreeState>, row: Row): Readonly<TreeState> {
@@ -171,8 +171,17 @@ export default class TreeState {
     }
 
     return shouldToggleOpen
-      ? TreeState.showRowsInRange(source, row.metadata.index + 1, lastChildIndex, currentDepth + 1)
-      : TreeState.hideRowsInRange(source, row.metadata.index + 1, lastChildIndex);
+      ? TreeState._showRowsInRange(source, row.metadata.index + 1, lastChildIndex, currentDepth + 1)
+      : TreeState._hideRowsInRange(source, row.metadata.index + 1, lastChildIndex);
+  }
+
+  static updateData(source: Readonly<TreeState>, row: Row, newData: RowData): Readonly<TreeState> {
+    const startRange = TreeState.sliceRows(source, 0, row.metadata.index);
+
+    const updatedRange = [new Row(newData, row.metadata, row.$state)];
+
+    const endRange = TreeState.sliceRows(source, row.metadata.index + 1, source.data.length);
+    return new TreeState(startRange.concat(updatedRange, endRange));
   }
 
   indexAtYPos(yPos: number): number {

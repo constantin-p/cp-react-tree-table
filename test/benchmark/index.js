@@ -4,7 +4,7 @@ const { generateData } = require('./mock-data');
 const { TreeState } = require('../../dist');
 
 
-const normalLoad = () => { // aprox 10 000 nodes
+const normalLoad = () => { // approx 10 000 nodes
   console.log('Generating sample data:');
   const FLAT_TREE_INPUT = generateData(10000, 1);
   const FLAT_TREE = TreeState.create(FLAT_TREE_INPUT) 
