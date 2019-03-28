@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import TreeRow from '../model/tree-row';
+import Row from '../model/row';
 
 
 export type ColumnProps = {
-  renderCell: (row: TreeRow) => Node;
+  renderCell: (row: Row) => Node;
   renderHeaderCell: () => Node;
 
   grow?: number;

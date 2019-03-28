@@ -3,7 +3,6 @@ import HeaderCellWrapper from './HeaderCellWrapper';
 import { ColumnProps } from './Column';
 
 
-
 type Props = {
   columns: Array<ColumnProps>;
   height?: number;

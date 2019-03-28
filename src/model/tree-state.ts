@@ -1,4 +1,4 @@
-import Row, { RowData } from './row';
+import { RowModel, RowData } from './row';
 
 
 interface TreeNode {
@@ -9,11 +9,11 @@ interface TreeNode {
 }
 
 export default class TreeState {
-  readonly data: Readonly<Array<Row>>;
+  readonly data: Readonly<Array<RowModel>>;
   readonly height: number;
   readonly hasData: boolean;
 
-  protected constructor(data: Readonly<Array<Row>>) {
+  protected constructor(data: Readonly<Array<RowModel>>) {
     this.data = data;
     this.hasData = (data.length > 0);
     this.height = (data.length == 0)
@@ -24,16 +24,16 @@ export default class TreeState {
   }
 
   static create(data: Array<TreeNode>): Readonly<TreeState> {
-    function _processNode(children: Array<TreeNode>, depth: number, index: number, top: number, isVisible: boolean = false): Array<Row> {
-      let result: Array<Row> = [];
+    function _processNode(children: Array<TreeNode>, depth: number, index: number, top: number, isVisible: boolean = false): Array<RowModel> {
+      let result: Array<RowModel> = [];
       let _top: number = top;
       for (let child of children) {
         if (child.children != null && child.children.length > 0) { // hasChildren
-          result.push(new Row(child.data, {  // Metadata
+          result.push(new RowModel(child.data, {  // Metadata
             depth: depth,
             index: index++,
 
-            height: child.height || Row.DEFAULT_HEIGHT,
+            height: child.height || RowModel.DEFAULT_HEIGHT,
             hasChildren: true,
           }, { // State
             isVisible: isVisible,
@@ -46,11 +46,11 @@ export default class TreeState {
             index++;
           }
         } else {
-          result.push(new Row(child.data, {  // Metadata
+          result.push(new RowModel(child.data, {  // Metadata
             depth: depth,
             index: index++,
 
-            height: child.height || Row.DEFAULT_HEIGHT,
+            height: child.height || RowModel.DEFAULT_HEIGHT,
             hasChildren: false,
           }, { // State
             isVisible: isVisible,
@@ -59,21 +59,21 @@ export default class TreeState {
         }
 
         if (isVisible) {
-          _top+= child.height || Row.DEFAULT_HEIGHT;
+          _top+= child.height || RowModel.DEFAULT_HEIGHT;
         }
       }
 
       return result;
     }
-    const rows = _processNode(data, 0, 0, 0, true);
-    return new TreeState(rows);
+    const rowModels = _processNode(data, 0, 0, 0, true);
+    return new TreeState(rowModels);
   }
 
   static createEmpty(): Readonly<TreeState> {
     return new TreeState([]);
   }
 
-  static sliceRows(source: Readonly<TreeState>, from: number, to: number): ReadonlyArray<Row> {
+  static sliceRows(source: Readonly<TreeState>, from: number, to: number): ReadonlyArray<RowModel> {
     if (from < 0) {
       throw new Error('Invalid range: from < 0 (${from} < 0).');
     }
@@ -93,22 +93,22 @@ export default class TreeState {
   private static _hideRowsInRange(source: Readonly<TreeState>, from: number = 0, to: number = source.data.length): Readonly<TreeState> {
     const startRange = TreeState.sliceRows(source, 0, from);
     let _top: number = source.data[from].$state.top;
-    const updatedRange = TreeState.sliceRows(source, from, to).map((row: Row): Row => {
-      if (row.metadata.depth > 0 && row.$state.isVisible) {
-        row.$state.isVisible = false;
+    const updatedRange = TreeState.sliceRows(source, from, to).map((model: RowModel): RowModel => {
+      if (model.metadata.depth > 0 && model.$state.isVisible) {
+        model.$state.isVisible = false;
       }
-      row.$state.top = _top;
-      if (row.$state.isVisible) {
-        _top+= row.metadata.height;
+      model.$state.top = _top;
+      if (model.$state.isVisible) {
+        _top+= model.metadata.height;
       }
-      return row;
+      return model;
     });
-    const endRange = TreeState.sliceRows(source, to, source.data.length).map((row: Row): Row => {
-      row.$state.top = _top;
-      if (row.$state.isVisible) {
-        _top+= row.metadata.height;
+    const endRange = TreeState.sliceRows(source, to, source.data.length).map((model: RowModel): RowModel => {
+      model.$state.top = _top;
+      if (model.$state.isVisible) {
+        _top+= model.metadata.height;
       }
-      return row;
+      return model;
     });
 
     return new TreeState(startRange.concat(updatedRange, endRange));
@@ -117,25 +117,25 @@ export default class TreeState {
   private static _showRowsInRange(source: Readonly<TreeState>, from: number = 0, to: number = source.data.length, depthLimit?: number): Readonly<TreeState> {
     const startRange = TreeState.sliceRows(source, 0, from);
     let _top: number = source.data[from].$state.top;
-    const updatedRange = TreeState.sliceRows(source, from, to).map((row: Row): Row => {
-      if (row.metadata.depth > 0 && !row.$state.isVisible) {
+    const updatedRange = TreeState.sliceRows(source, from, to).map((model: RowModel): RowModel => {
+      if (model.metadata.depth > 0 && !model.$state.isVisible) {
         // If a depthLimit value is set, only show nodes with a depth value less or equal
-        if (depthLimit == null || (depthLimit != null && row.metadata.depth <= depthLimit)) {
-          row.$state.isVisible = true;
+        if (depthLimit == null || (depthLimit != null && model.metadata.depth <= depthLimit)) {
+          model.$state.isVisible = true;
         }
       }
-      row.$state.top = _top;
-      if (row.$state.isVisible) {
-        _top+= row.metadata.height;
+      model.$state.top = _top;
+      if (model.$state.isVisible) {
+        _top+= model.metadata.height;
       }
-      return row;
+      return model;
     });
-    const endRange = TreeState.sliceRows(source, to, source.data.length).map((row: Row): Row => {
-      row.$state.top = _top;
-      if (row.$state.isVisible) {
-        _top+= row.metadata.height;
+    const endRange = TreeState.sliceRows(source, to, source.data.length).map((model: RowModel): RowModel => {
+      model.$state.top = _top;
+      if (model.$state.isVisible) {
+        _top+= model.metadata.height;
       }
-      return row;
+      return model;
     });
 
     return new TreeState(startRange.concat(updatedRange, endRange));
@@ -149,16 +149,16 @@ export default class TreeState {
     return TreeState._hideRowsInRange(source);
   }
 
-  static toggleChildren(source: Readonly<TreeState>, row: Row): Readonly<TreeState> {
-    if (row.metadata.index == source.data.length - 1) {
+  static toggleChildren(source: Readonly<TreeState>, model: RowModel): Readonly<TreeState> {
+    if (model.metadata.index == source.data.length - 1) {
       // Last item, no children available
       return new TreeState(source.data.slice());
     }
 
-    const currentDepth = row.metadata.depth;
+    const currentDepth = model.metadata.depth;
     let shouldToggleOpen: boolean | null = null;
 
-    let lastChildIndex = row.metadata.index + 1;
+    let lastChildIndex = model.metadata.index + 1;
     for (; lastChildIndex < source.data.length; lastChildIndex++) {
       const currentRow = source.data[lastChildIndex];
       if (currentRow.metadata.depth < currentDepth + 1) {
@@ -171,16 +171,16 @@ export default class TreeState {
     }
 
     return shouldToggleOpen
-      ? TreeState._showRowsInRange(source, row.metadata.index + 1, lastChildIndex, currentDepth + 1)
-      : TreeState._hideRowsInRange(source, row.metadata.index + 1, lastChildIndex);
+      ? TreeState._showRowsInRange(source, model.metadata.index + 1, lastChildIndex, currentDepth + 1)
+      : TreeState._hideRowsInRange(source, model.metadata.index + 1, lastChildIndex);
   }
 
-  static updateData(source: Readonly<TreeState>, row: Row, newData: RowData): Readonly<TreeState> {
-    const startRange = TreeState.sliceRows(source, 0, row.metadata.index);
+  static updateData(source: Readonly<TreeState>, model: RowModel, newData: RowData): Readonly<TreeState> {
+    const startRange = TreeState.sliceRows(source, 0, model.metadata.index);
 
-    const updatedRange = [new Row(newData, row.metadata, row.$state)];
+    const updatedRange = [new RowModel(newData, model.metadata, model.$state)];
 
-    const endRange = TreeState.sliceRows(source, row.metadata.index + 1, source.data.length);
+    const endRange = TreeState.sliceRows(source, model.metadata.index + 1, source.data.length);
     return new TreeState(startRange.concat(updatedRange, endRange));
   }
 
@@ -191,8 +191,8 @@ export default class TreeState {
 
     let i = 0;
     for (; i < this.data.length; i++) {
-      const row = this.data[i];
-      if (row.$state.isVisible && row.$state.top + row.metadata.height > yPos) {
+      const model = this.data[i];
+      if (model.$state.isVisible && model.$state.top + model.metadata.height > yPos) {
         break;
       }
     }

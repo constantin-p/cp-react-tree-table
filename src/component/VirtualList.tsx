@@ -2,8 +2,7 @@ import React, { Component, CSSProperties } from 'react';
 import VirtualListRow from './VirtualListRow';
 import { ColumnProps } from './Column';
 import TreeState from '../model/tree-state';
-import TreeRow from '../model/tree-row';
-import Row from '../model/row';
+import { RowModel } from '../model/row';
 
 
 type Props = {
@@ -42,23 +41,23 @@ export default class VirtualList extends Component<Props, State> {
 
     const contentTopOffset = data.yPosAtIndex(startIndex);
 
-    let visibleRowsData: Array<Row> = [], lastVisibleRowIndex;
-    TreeState.sliceRows(data, startIndex, endIndex).forEach((row: Row) => {
-      if (row.$state.isVisible) {
-        visibleRowsData.push(row);
+    let visibleRowsData: Array<RowModel> = [], lastVisibleRowIndex;
+    TreeState.sliceRows(data, startIndex, endIndex).forEach((rowModel: RowModel) => {
+      if (rowModel.$state.isVisible) {
+        visibleRowsData.push(rowModel);
       }
     });
 
-    const visibleVLRows = visibleRowsData.map((row: Row, relIndex: number) => {
+    const visibleVLRows = visibleRowsData.map((rowModel: RowModel, relIndex: number) => {
 
       return (
         <VirtualListRow key={relIndex}
           data={data}
-          row={row}
+          model={rowModel}
           columns={columns}
           onChange={onChange}
 
-          index={row.metadata.index}
+          index={rowModel.metadata.index}
           relIndex={relIndex} />
       );
     });

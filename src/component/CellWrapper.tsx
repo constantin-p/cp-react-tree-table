@@ -1,10 +1,10 @@
 import React, { Component, CSSProperties } from 'react';
-import TreeRow from '../model/tree-row';
+import Row from '../model/row';
 
 
 type Props = {
-  row: TreeRow;
-  renderCell: (row: TreeRow) => Node;
+  row: Row;
+  renderCell: (row: Row) => Node;
 
   grow?: number;
   basis?: string; // <CSS size> | auto

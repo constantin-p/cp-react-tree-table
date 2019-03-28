@@ -16,7 +16,7 @@ export type RowState = {
   top: number;
 }
 
-export default class Row {
+export class RowModel {
   static DEFAULT_HEIGHT: number = ROW_DEFAULT_HEIGHT;
 
   readonly data: RowData;
@@ -27,5 +27,25 @@ export default class Row {
     this.data = data;
     this.$state = state;
     this.metadata = metadata;
+  }
+}
+
+export interface RowAPI {
+  toggleChildren: () => void;
+  updateData: (newData: RowData) => void;
+}
+
+export default class Row extends RowModel implements RowAPI {
+  // RowAPI
+  public toggleChildren: () => void;
+  public updateData: (newData: RowData) => void
+
+  constructor(model: RowModel, api: RowAPI) {
+    // RowModel
+    super(model.data, model.metadata, model.$state)
+
+    // RowAPI
+    this.toggleChildren = api.toggleChildren;
+    this.updateData = api.updateData;
   }
 }

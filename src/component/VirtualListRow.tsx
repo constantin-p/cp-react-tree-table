@@ -2,13 +2,13 @@ import React, { Component, Children, CSSProperties } from 'react';
 import Column, { ColumnProps } from './Column';
 import CellWrapper from './CellWrapper';
 import TreeState from '../model/tree-state';
-import TreeRow from '../model/tree-row';
-import Row from '../model/row';
+import Row, { RowModel } from '../model/row';
+import { createRow } from '../util/row-creator';
 
 
 type Props = {
   data: Readonly<TreeState>;
-  row: Row;
+  model: RowModel;
   columns: Array<ColumnProps>;
 
   onChange: (value: Readonly<TreeState>) => void;
@@ -22,8 +22,8 @@ type State = { }
 export default class VirtualListRow extends Component<Props, State> {
   
   render() {
-    const { row, columns, data, index, relIndex } = this.props;
-    const treeRow = new TreeRow(row, data, this.handleChange);
+    const { model, columns, data, index, relIndex } = this.props;
+    const row: Row = createRow(model, data, this.handleChange);
 
     return (
       <div className={`cp_tree-table_row`}
@@ -34,7 +34,7 @@ export default class VirtualListRow extends Component<Props, State> {
         {columns.map((column: ColumnProps, indexKey) => {
           return (
             <CellWrapper key={indexKey}
-              row={treeRow}
+              row={row}
               renderCell={column.renderCell} 
 
               grow={column.grow}
