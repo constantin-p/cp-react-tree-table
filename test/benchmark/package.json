@@ -1,0 +1,12 @@
+{
+  "name": "cp-react-tree-table-benchmarks",
+  "description": "TreeTable benchmarks meta-package",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "benchmark": "node index.js"
+  },
+  "dependencies": {
+    "benchtable": "^0.1.0"
+  }
+}
