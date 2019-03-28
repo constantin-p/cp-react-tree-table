@@ -22,9 +22,9 @@ export default class DemoApp extends Component {
         <TreeTable className="demo-tree-table"
           value={treeValue}
           onChange={this.handleOnChange}>
-          <TreeTable.Column renderCell={this.renderIndexCell} basis="300px"/>
-          <TreeTable.Column renderCell={this.renderCell}/>
-          <TreeTable.Column renderCell={this.renderEditableCell}/>
+          <TreeTable.Column renderCell={this.renderIndexCell} renderHeaderCell={this.renderHeaderCell('Column 1')} basis="300px"/>
+          <TreeTable.Column renderCell={this.renderCell} renderHeaderCell={this.renderHeaderCell('Column 2')}/>
+          <TreeTable.Column renderCell={this.renderEditableCell} renderHeaderCell={this.renderHeaderCell('Column 3')}/>
         </TreeTable>
         
       </div>
@@ -52,6 +52,14 @@ export default class DemoApp extends Component {
         treeValue: TreeState.collapseAll(state.treeValue)
       };
     });
+  }
+
+  renderHeaderCell = (name) => {
+    return () => {
+      return (
+        <span>{name}</span>
+      );
+    }
   }
 
   renderIndexCell = (row) => {

@@ -1,5 +1,6 @@
 import React, { Component, Children } from 'react';
 import Column, { ColumnProps } from './Column';
+import TreeTableHeader from './TreeTableHeader';
 import VirtualList from './VirtualList';
 import TreeState from '../model/tree-state';
 
@@ -14,6 +15,7 @@ type Props = {
   // View properties
   height?: number; // view height (px)
   rowHeight?: number; // row height (px)
+  headerHeight?: number; // header height (px)
   className?: string;
 }
 
@@ -24,7 +26,8 @@ export default class TreeTable extends Component<Props, State> {
   static Column = Column;
   
   render() {
-    const { value, children, onChange, className } = this.props;
+    const { value, children, onChange,
+      headerHeight, className } = this.props;
 
     const columnsDef = Children.toArray(children).map((child: React.ReactElement<Column>) => {
       return (child.props as unknown) as ColumnProps;
@@ -32,6 +35,7 @@ export default class TreeTable extends Component<Props, State> {
 
     return (
       <div className={`cp_tree-table ${className != null && className}`}>
+        <TreeTableHeader columns={columnsDef} height={headerHeight}/>
         { value.hasData && <VirtualList data={value} columns={columnsDef} onChange={onChange || noopOnChange}/> }
       </div>
     );
