@@ -37,6 +37,7 @@ export default class TreeTableHeader extends Component<Props, State> {
   }
 }
 
+
 const STYLE_ROW: CSSProperties = {
   display: 'flex',
 

@@ -5,7 +5,7 @@ interface TreeNode {
   data: any;
   children?: Array<TreeNode>;
 
-  height: number;
+  height?: number;
 }
 
 export default class TreeState {

@@ -12,9 +12,11 @@ type Props = {
 
   children: Array<React.ReactElement<Column>>;
 
+  // View callbacks
+  onScroll?: (scrollTop: number) => void,
+
   // View properties
   height?: number; // view height (px)
-  rowHeight?: number; // row height (px)
   headerHeight?: number; // header height (px)
   className?: string;
 }
@@ -22,11 +24,13 @@ type Props = {
 type State = { }
 
 const noopOnChange = (value: Readonly<TreeState>) => {}
+const noopOnScroll = (scrollTop: number) => {}
 export default class TreeTable extends Component<Props, State> {
   static Column = Column;
+  private vListRef = React.createRef<VirtualList>();
   
   render() {
-    const { value, children, onChange,
+    const { value, children, onChange, onScroll,
       headerHeight, className } = this.props;
 
     const columnsDef = Children.toArray(children).map((child: React.ReactElement<Column>) => {
@@ -36,8 +40,17 @@ export default class TreeTable extends Component<Props, State> {
     return (
       <div className={`cp_tree-table ${className != null && className}`}>
         <TreeTableHeader columns={columnsDef} height={headerHeight}/>
-        { value.hasData && <VirtualList data={value} columns={columnsDef} onChange={onChange || noopOnChange}/> }
+        { value.hasData && <VirtualList data={value} columns={columnsDef} onChange={onChange || noopOnChange}
+          ref={this.vListRef}
+          onScroll={onScroll || noopOnScroll} /> }
       </div>
     );
+  }
+
+  // Public API
+  scrollTo(posY: number): void {
+    if (this.vListRef.current != null) {
+      this.vListRef.current.scrollTo(posY);
+    }
   }
 }

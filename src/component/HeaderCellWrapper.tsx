@@ -28,6 +28,7 @@ export default class HeaderCellWrapper extends Component<Props, State> {
   }
 }
 
+
 const STYLE_COLUMN: CSSProperties = {
   boxSizing: 'border-box',
   position: 'relative',

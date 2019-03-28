@@ -31,6 +31,7 @@ export default class CellWrapper extends Component<Props, State> {
   }
 }
 
+
 const STYLE_COLUMN: CSSProperties = {
   boxSizing: 'border-box',
   position: 'relative',

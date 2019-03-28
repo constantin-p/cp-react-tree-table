@@ -9,6 +9,8 @@ export default class DemoApp extends Component {
     treeValue: TreeState.create(mockData)
   };
 
+  treeTableRef = React.createRef();
+
   render() {
     const { treeValue } = this.state;
     
@@ -17,11 +19,15 @@ export default class DemoApp extends Component {
         <p className="controls">
           <button onClick={this.handleOnExpandAll}>Expand all</button>
           <button onClick={this.handleOnCollapseAll}>Collapse all</button>
+          <button onClick={this.handleScrollTo}>Scroll to 100px</button>
         </p>
 
         <TreeTable className="demo-tree-table"
           value={treeValue}
-          onChange={this.handleOnChange}>
+          onChange={this.handleOnChange}
+
+          ref={this.treeTableRef}
+          onScroll={this.handleOnScroll}>
           <TreeTable.Column renderCell={this.renderIndexCell} renderHeaderCell={this.renderHeaderCell('Column 1')} basis="300px"/>
           <TreeTable.Column renderCell={this.renderCell} renderHeaderCell={this.renderHeaderCell('Column 2')}/>
           <TreeTable.Column renderCell={this.renderEditableCell} renderHeaderCell={this.renderHeaderCell('Column 3')}/>
@@ -35,6 +41,11 @@ export default class DemoApp extends Component {
     console.log('newValue', newValue)
     this.setState({ treeValue: newValue });
   }
+
+  handleOnScroll = (newValue) => {
+    console.log('onScroll', newValue)
+  }
+
 
   handleOnExpandAll = () => {
     console.log('Expand all');
@@ -52,6 +63,13 @@ export default class DemoApp extends Component {
         treeValue: TreeState.collapseAll(state.treeValue)
       };
     });
+  }
+
+  handleScrollTo = () => {
+    console.log('Scroll to');
+    if (this.treeTableRef.current != null) {
+      this.treeTableRef.current.scrollTo(100);
+    }
   }
 
   renderHeaderCell = (name) => {

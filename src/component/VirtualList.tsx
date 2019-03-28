@@ -11,6 +11,7 @@ type Props = {
   columns: Array<ColumnProps>;
 
   onChange: (value: Readonly<TreeState>) => void;
+  onScroll: (scrollTop: number) => void;
 }
 
 type State = {
@@ -82,13 +83,22 @@ export default class VirtualList extends Component<Props, State> {
   private handleScroll = () => {
     if (this.containerRef.current != null) {
       const { scrollTop } = this.containerRef.current;
+      const { onScroll } = this.props;
 
+      onScroll(scrollTop);
       this.setState({
         topOffset: scrollTop,
       });
     }
   }
+
+  scrollTo = (posY: number) => {
+    if (this.containerRef.current != null) {
+      this.containerRef.current.scrollTop = posY;
+    }
+  }
 }
+
 
 const STYLE_LIST: CSSProperties = {
   overflow: 'auto',
