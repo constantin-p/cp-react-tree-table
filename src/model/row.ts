@@ -38,7 +38,7 @@ export interface RowAPI {
 export default class Row extends RowModel implements RowAPI {
   // RowAPI
   public toggleChildren: () => void;
-  public updateData: (newData: RowData) => void
+  public updateData: (newData: RowData) => void;
 
   constructor(model: RowModel, api: RowAPI) {
     // RowModel

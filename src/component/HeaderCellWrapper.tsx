@@ -33,4 +33,5 @@ const STYLE_COLUMN: CSSProperties = {
   boxSizing: 'border-box',
   position: 'relative',
   overflow: 'hidden',
+  width: '100%',
 };
