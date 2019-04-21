@@ -7,7 +7,7 @@ html {
 
 body {
   background: #fff;
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,  'Helvetica Neue', sans-serif;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,  'Helvetica Neue', Arial, sans-serif;
   font-size: .8rem;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
@@ -15,7 +15,8 @@ body {
 }
 
 ::selection {
-  background: #fff292;
+  background: #eb5757;
+  color: #fff;
 }
 
 a,
@@ -213,64 +214,4 @@ header .install p::before {
   color: #0f55eb;
   background: #edf6fc;
 }
-
-
-
-/*
- *  Tree table
- */
-.demo-tree-table {
-  background: #ffffff;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-}
-
-.demo-tree-table .cp_tree-table_header {
-  box-shadow: inset 0 -1px 0 #ccc;
-  background: #DFE1E5;
-}
-
-.demo-tree-table .cp_tree-table_row:not(:first-child) {
-  box-shadow: inset 0 1px 0 #DFE1E5;
-}
-
-.demo-tree-table .cp_tree-table_cell,
-.demo-tree-table .cp_tree-table_header-cell {
-  display: flex;
-  align-items: center;
-  font-weight: 300;
-  font-size: 13px;
-  height: 100%;
-  width: 100%;
-
-  font-family: 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, Courier, monospace;
-}
-
-.demo-tree-table .cp_tree-table_cell > div {
-  flex-grow: 1;
-}
-
-.demo-tree-table .cp_tree-table_cell .toggle-button {
-  background: #f0f3f5;
-  color: #0f55eb;
-  cursor: pointer;
-  padding: 3px;
-  border: none;
-  border-radius: 3px;
-  user-select: none;
-}
-
-.demo-tree-table .cp_tree-table_cell .toggle-button:hover {
-  background: #edf6fc;
-}
-
-
-.demo-tree-table .cp_tree-table_row {
-  box-shadow: 0 1px 0 #f0f3f5;
-}
-
-.demo-tree-table .cp_tree-table_row.cp_tree-table_row_odd {
-  background: #f0f3f5;
-}
-
 
