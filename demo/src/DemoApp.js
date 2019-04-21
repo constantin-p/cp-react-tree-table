@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 
 import { TreeTable, TreeState } from 'cp-react-tree-table';
-import { mockData } from './mock-data';
+import { generateData } from './mock-data-gen';
 
 
+const MOCK_DATA = generateData();
 export default class DemoApp extends Component {
   state = {
-    treeValue: TreeState.create(mockData)
+    treeValue: TreeState.create(MOCK_DATA.data)
   };
 
   treeTableRef = React.createRef();
@@ -17,10 +18,11 @@ export default class DemoApp extends Component {
     return (
       <div className="wrapper">
         <p className="controls">
+          <span>Row count: {MOCK_DATA.count}</span>
           <button onClick={this.handleOnExpandAll}>Expand all</button>
           <button onClick={this.handleOnCollapseAll}>Collapse all</button>
           <button onClick={this.handleScrollTo}>Scroll to 100px</button>
-          <button onClick={this.handleScrollToGroupBeta}>Scroll to "Group Beta"</button>
+          {/* <button onClick={this.handleScrollToGroupBeta}>Scroll to "Group Beta"</button> */}
         </p>
 
         <TreeTable className="demo-tree-table" headerHeight="32"
@@ -72,22 +74,22 @@ export default class DemoApp extends Component {
     }
   }
 
-  handleScrollToGroupBeta = () => {
-    console.log('Scroll to "Group Beta"');
-    const { treeValue } = this.state;
+  // handleScrollToGroupBeta = () => {
+  //   console.log('Scroll to "Group Beta"');
+  //   const { treeValue } = this.state;
 
-    const node = mockData[8].children[0].children[1];
-    const rowModel = treeValue.findRowModel(node);
-    if (rowModel != null) {
-      this.setState({
-        treeValue: TreeState.expandAncestors(treeValue, rowModel),
-      }, () => {
-        if (this.treeTableRef.current != null) {
-          this.treeTableRef.current.scrollTo(rowModel.$state.top);
-        }
-      });
-    }
-  }
+  //   const node = mockData[8].children[0].children[1];
+  //   const rowModel = treeValue.findRowModel(node);
+  //   if (rowModel != null) {
+  //     this.setState({
+  //       treeValue: TreeState.expandAncestors(treeValue, rowModel),
+  //     }, () => {
+  //       if (this.treeTableRef.current != null) {
+  //         this.treeTableRef.current.scrollTo(rowModel.$state.top);
+  //       }
+  //     });
+  //   }
+  // }
 
 
   renderHeaderCell = (name, alignLeft = true) => {
