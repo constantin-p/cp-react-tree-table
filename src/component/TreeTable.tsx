@@ -33,9 +33,14 @@ export default class TreeTable extends Component<Props, State> {
     const { value, children, onChange, onScroll,
       headerHeight, className } = this.props;
 
-    const columnsDef = Children.toArray(children).map((child: React.ReactElement<Column>) => {
-      return (child.props as unknown) as ColumnProps;
-    });
+    const columnsDef: Array<ColumnProps> = [];
+    Children
+      .toArray(children)
+      .forEach((node: React.ReactNode) => {
+        if (isColumnElement(node)) {
+          columnsDef.push(node.props);
+        }
+      });
 
     return (
       <div className={`cp_tree-table ${className != null && className}`}>
@@ -47,10 +52,29 @@ export default class TreeTable extends Component<Props, State> {
     );
   }
 
+  private handleChange = (value: Readonly<TreeState>): void => {
+    const { onChange } = this.props;
+    (onChange || noopOnChange)(value);
+  }
+
   // Public API
   scrollTo(posY: number): void {
     if (this.vListRef.current != null) {
       this.vListRef.current.scrollTo(posY);
     }
   }
+}
+
+
+const isColumnElement = (elem: any): elem is React.ReactElement<ColumnProps> => {
+  return checkElementType(elem, Column);
+}
+
+const checkElementType = <T extends {}>(elem: any, cmpType: React.ComponentType<T>): elem is React.ReactElement<T> => {
+  return (
+    elem != null &&
+    elem.type != null &&
+    elem.type.displayName != null &&
+    elem.type.displayName === cmpType.displayName
+  );
 }

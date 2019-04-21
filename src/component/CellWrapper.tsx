@@ -15,7 +15,7 @@ type State = { }
 export default class CellWrapper extends Component<Props, State> {
   static defaultProps = {
     grow: 1,
-    basis: 'auto',
+    basis: '0',
   };
 
 

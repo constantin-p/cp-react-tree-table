@@ -1,7 +1,7 @@
 import { RowModel, RowData } from './row';
 
 
-interface TreeNode {
+export interface TreeNode {
   data: any;
   children?: Array<TreeNode>;
 
@@ -40,6 +40,10 @@ export default class TreeState {
             top: _top,
           }));
 
+          if (isVisible) {
+            _top+= child.height || RowModel.DEFAULT_HEIGHT;
+          }
+
           const grandchildren = _processNode(child.children, depth + 1, index, _top);
           for (let grandchild of grandchildren) {
             result.push(grandchild);
@@ -56,10 +60,10 @@ export default class TreeState {
             isVisible: isVisible,
             top: _top,
           }));
-        }
 
-        if (isVisible) {
-          _top+= child.height || RowModel.DEFAULT_HEIGHT;
+          if (isVisible) {
+            _top+= child.height || RowModel.DEFAULT_HEIGHT;
+          }
         }
       }
 
@@ -149,9 +153,40 @@ export default class TreeState {
     return TreeState._hideRowsInRange(source);
   }
 
+  static expandAncestors(source: Readonly<TreeState>, model: RowModel): Readonly<TreeState> {
+    if (!source.hasData) {
+      return TreeState.createEmpty();
+    }
+    if (model.$state.isVisible || model.metadata.depth == 0 || model.metadata.index == 0) {
+      return new TreeState(source.data.slice());
+    }
+
+    // Find range start
+    let startIndex = model.metadata.index - 1;
+    for (; startIndex >= 0; startIndex--) {
+      const currentRowModel = source.data[startIndex];
+      if (currentRowModel.metadata.depth == 0) {
+        break;
+      }
+    }
+
+    // Find range end
+    let endIndex = model.metadata.index;
+    for (; endIndex < source.data.length; endIndex++) {
+      const currentRowModel = source.data[endIndex];
+      if (currentRowModel.metadata.depth !== model.metadata.depth) {
+        break;
+      }
+    }
+
+    return TreeState._showRowsInRange(source, startIndex, endIndex)
+  }
+
   static toggleChildren(source: Readonly<TreeState>, model: RowModel): Readonly<TreeState> {
-    if (model.metadata.index == source.data.length - 1) {
-      // Last item, no children available
+    if (
+      model.metadata.index == source.data.length - 1 // Last item, no children available
+      || model.metadata.hasChildren == false
+    ) {
       return new TreeState(source.data.slice());
     }
 
@@ -182,6 +217,21 @@ export default class TreeState {
 
     const endRange = TreeState.sliceRows(source, model.metadata.index + 1, source.data.length);
     return new TreeState(startRange.concat(updatedRange, endRange));
+  }
+
+  findRowModel(node: TreeNode): RowModel | undefined {
+    if (node.data == null) {
+      throw new Error(`Invalid TreeNode! No data property: ${node}.`);
+    }
+    if (!this.hasData) {
+      return;
+    }
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i].data == node.data) {
+        return this.data[i];
+      }
+    }
+    return;
   }
 
   indexAtYPos(yPos: number): number {

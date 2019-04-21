@@ -11,7 +11,8 @@ export type ColumnProps = {
 }
 
 export default class Column extends Component<ColumnProps, {}> {
-  
+  static displayName: string = 'TreeTable.Column'; // NOTE: Used to filter TreeTable children props
+
   render() {
     return null;
   }
