@@ -1,0 +1,21 @@
+<h1>
+  {{#if-cond kind '==' 'class'}}
+    <span class="kind kind-class">C</span>
+  {{/if-cond}}
+  {{#if-cond kind '==' 'type'}}
+    <span class="kind kind-type">T</span>
+  {{/if-cond}}
+
+  {{ title }}
+
+  {{#if extends}}
+    <span class="extends"> {{ extends }} </span>
+  {{/if}}
+  {{#if implements}}
+    <div class="implements">
+      {{#each implements}}
+        <span class="interface">{{ this }}</span>
+      {{/each}}
+    </div>
+  {{/if}}
+</h1>

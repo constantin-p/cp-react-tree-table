@@ -1,0 +1,22 @@
+  {{#with overview}}
+    {{> outline-section-link title="Overview" }}
+  {{/with}}  <!-- overview -->
+  {{#with api-reference}}
+    {{> outline-section-link title="API Reference" }}
+    <ul class="articles">
+      {{#each articles}}
+        {{> outline-section-link }}
+      {{/each}}
+    </ul>
+  {{/with}}  <!-- api-reference -->
+  {{#with demos}}
+    {{> outline-section-link title="Demos" }}
+    <ul class="articles">
+      {{#each articles}}
+        {{> outline-section-link }}
+      {{/each}}
+    </ul>
+  {{/with}}  <!-- demos -->
+  {{#with update-guide}}
+    {{> outline-section-link title="Update guide" }}
+  {{/with}}  <!-- update-guide -->

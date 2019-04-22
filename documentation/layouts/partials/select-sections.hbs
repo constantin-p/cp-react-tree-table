@@ -1,0 +1,20 @@
+{{#with overview}}
+  {{> select-section-option title="Overview" }}
+{{/with}}  <!-- overview -->
+{{#with api-reference}}
+  <optgroup label="API Reference">
+    {{#each articles}}
+      {{> select-section-option }}
+    {{/each}}
+  </optgroup>
+{{/with}}  <!-- api-reference -->
+{{#with demos}}
+  <optgroup label="Demos">
+    {{#each articles}}
+      {{> select-section-option }}
+    {{/each}}
+  </optgroup>
+{{/with}}  <!-- demos -->
+{{#with update-guide}}
+  {{> select-section-option title="Update guide" }}
+{{/with}}  <!-- update-guide -->
