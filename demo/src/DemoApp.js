@@ -17,21 +17,60 @@ export default class DemoApp extends Component {
     
     return (
       <div className="wrapper">
-        <p className="controls">
-          <span>Row count: {MOCK_DATA.count}</span>
-          <button onClick={this.handleOnExpandAll}>Expand all</button>
-          <button onClick={this.handleOnCollapseAll}>Collapse all</button>
-          <button onClick={this.handleScrollTo}>Scroll to 100px</button>
-          {/* <button onClick={this.handleScrollToGroupBeta}>Scroll to "Group Beta"</button> */}
-        </p>
+        <header>
+          <section>
+            <div className="description">
+              <h1>cp-react-tree-table</h1>
+              <p>A fast, efficient tree table component for ReactJS.</p>
+              <ul>
+                <li>
+                  <a href="https://github.com/constantin-p/cp-react-tree-table">
+                    <span className="service">GitHub</span>
+                    <span className="name hide-mobile"><u>cp-react-tree-table</u></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.npmjs.com/package/cp-react-tree-table">
+                    <span className="service">npm</span>
+                    <span className="name hide-mobile"><u>cp-react-tree-table</u></span>
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-        <TreeTable className="demo-tree-table" headerHeight="32"
+            <div className="install-instructions">
+              <p className="install-npm">
+                npm install --save cp-react-tree-table
+              </p>
+              <div className="divider"></div>
+              <p className="install-yarn">
+                yarn add cp-react-tree-table
+              </p>
+            </div>
+          </section>
+        </header>
+        
+        <div className="controls">
+          <div className="control-section">
+            <span>Node count: {this.renderNodeCount(MOCK_DATA.count)}</span>
+          </div>
+          <div className="control-section">
+            <button onClick={this.handleOnExpandAll}>Expand all</button>
+            <button onClick={this.handleOnCollapseAll}>Collapse all</button>
+            <button onClick={this.handleScrollTo}>Scroll to 1000px</button>
+          </div>
+        </div>
+
+        <TreeTable className="demo-tree-table"
+          height="360"
+          headerHeight="32"
+
           value={treeValue}
           onChange={this.handleOnChange}
 
           ref={this.treeTableRef}
           onScroll={this.handleOnScroll}>
-          <TreeTable.Column renderCell={this.renderIndexCell} renderHeaderCell={this.renderHeaderCell('Name')} basis="220px" grow="0"/>
+          <TreeTable.Column renderCell={this.renderIndexCell} renderHeaderCell={this.renderHeaderCell('Name')} basis="180px" grow="0"/>
           <TreeTable.Column renderCell={this.renderEditableCell} renderHeaderCell={this.renderHeaderCell('Contact person')}/>
           <TreeTable.Column renderCell={this.renderEmployeesCell} renderHeaderCell={this.renderHeaderCell('Employees', false)}/>
           <TreeTable.Column renderCell={this.renderExpensesCell} renderHeaderCell={this.renderHeaderCell('Expenses ($)', false)}/>
@@ -53,7 +92,7 @@ export default class DemoApp extends Component {
     console.log('Expand all');
     this.setState((state) => {
       return {
-        treeValue: TreeState.expandAll(state.treeValue)
+        treeValue: TreeState.expandAll(state.treeValue),
       };
     });
   }
@@ -70,27 +109,9 @@ export default class DemoApp extends Component {
   handleScrollTo = () => {
     console.log('Scroll to');
     if (this.treeTableRef.current != null) {
-      this.treeTableRef.current.scrollTo(100);
+      this.treeTableRef.current.scrollTo(1000);
     }
   }
-
-  // handleScrollToGroupBeta = () => {
-  //   console.log('Scroll to "Group Beta"');
-  //   const { treeValue } = this.state;
-
-  //   const node = mockData[8].children[0].children[1];
-  //   const rowModel = treeValue.findRowModel(node);
-  //   if (rowModel != null) {
-  //     this.setState({
-  //       treeValue: TreeState.expandAncestors(treeValue, rowModel),
-  //     }, () => {
-  //       if (this.treeTableRef.current != null) {
-  //         this.treeTableRef.current.scrollTo(rowModel.$state.top);
-  //       }
-  //     });
-  //   }
-  // }
-
 
   renderHeaderCell = (name, alignLeft = true) => {
     return () => {
@@ -136,6 +157,12 @@ export default class DemoApp extends Component {
             contact: event.target.value,
           });
         }}/>
+    );
+  }
+
+  renderNodeCount = (value) => {
+    return (
+      <span className="node-count">{value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</span>
     );
   }
 }

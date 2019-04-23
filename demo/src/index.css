@@ -1,22 +1,21 @@
 html {
   box-sizing: border-box;
-  font-size: 18px;
+  font-size: 10px;
   line-height: 1;
   -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background: #fff;
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,  'Helvetica Neue', Arial, sans-serif;
-  font-size: .8rem;
+  background: #fffefc;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.4rem;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
   margin: 0;
 }
 
 ::selection {
-  background: #eb5757;
-  color: #fff;
+  background: #fff292;
 }
 
 a,
@@ -37,8 +36,9 @@ button:active {
 
 .wrapper { 
   min-height: 100vh;
+  min-width: 100vw;
+  margin: 0 auto;
   padding: 0 1rem 4rem 1rem;
-  margin: 0 15%;
   box-sizing: border-box;
   background: #ffffff;
 }
@@ -49,169 +49,3 @@ header {
   padding: 1.5rem 0;
   flex-direction: column;
 }
-
-
-
-/*
- *  Links 
- */
-header .links ul {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0;
-}
-
-header .links li {
-  color: #000;
-  font-size: .9rem;
-  position: relative;
-  display: inline-block;
-}
-
-header .links li:not(:first-child) {
-  margin-left: 1.5rem;
-}
-
-header .links a {
-  font-size: inherit;
-  color: inherit;
-  font-weight: 500;
-  position: relative;
-  transition: color .2s ease-in-out;
-}
-
-header .links .name {
-  color: rgba(0, 0, 0, .4);
-  font-weight: 400;
-  font-family: 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, Courier, monospace;
-}
-
-header .links .name::before {
-  content: ' (';
-}
-header .links .name::after {
-  content: ') ';
-}
-
-/* Underline animation */
-header .links a::after {
-  position: absolute;
-  content: '';
-  display: block;
-  left: 0;
-  bottom: -.2rem;
-  width: 100%;
-  height: .05rem;
-  background-color: #bbb;
-  transition: transform .2s ease,
-    background-color .2s ease-in-out;
-  transform-origin: 0;
-  transform: scaleX(0);
-}
-
-/* hover styles */
-header .links li a:hover::after,
-header .links li a:focus::after {
-  transform: scaleX(1);
-  background-color: #0f55eb;
-}
-
-header .links li a:hover,
-header .links li a:focus {
-  color: #0f55eb;
-}
-
-
-
-/*
- *  Install 
- */
-header .install {
-  padding-top: 1.5rem;
-}
-
-header .install p {
-  background: #f5f5f5;
-  padding: 1rem;
-  font-family: 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, Courier, monospace;
-}
-
-header .install p::before {
-  content: '$ ';
-}
-
-.divider {
-  border-top: 1px solid #e7e9ed;
-  height: 1px;
-  margin: 14px 0 15px 0;
-  text-align: center;
-}
-
-.divider::after {
-  background: #fff;
-  color: #aaa;
-  content: 'OR';
-  display: inline-block;
-  font-size: .7rem;
-  padding: 0 .4rem;
-  transform: translateY(-.45rem);
-}
-
-
-
-@media (max-width: 840px) {
-  .hide-mobile {
-    display: none;
-  }
-
-  .wrapper {
-    margin: 0;
-  }
-
-  header {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  header .install {
-    flex-direction: row;
-    justify-content: flex-end;
-    padding: 0;
-  }
-
-  header .install p {
-    margin: 0;
-  }
-}
-
-@media (max-width: 600px) {
-  header {
-    flex-direction: column;
-  }
-}
-
-
-
-/*
- * Tree table controls
- */
-.controls > button {
-  appearance: none;
-  background: rgba(0, 0, 0, .06);
-  border: none;
-  border-radius: 3px;
-  margin-right: 1rem;
-
-  cursor: pointer;
-  color: rgba(0,0,0,.85);
-  font-size: .7rem;
-  font-weight: 500;
-  padding: .2rem .4rem;
-}
-
-.controls > button:hover {
-  color: #0f55eb;
-  background: #edf6fc;
-}
-

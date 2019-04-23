@@ -23,15 +23,16 @@ type Props = {
 
 type State = { }
 
+const TABLE_DEFAULT_HEIGHT = 260;
 const noopOnChange = (value: Readonly<TreeState>) => {}
 const noopOnScroll = (scrollTop: number) => {}
 export default class TreeTable extends Component<Props, State> {
   static Column = Column;
   private vListRef = React.createRef<VirtualList>();
-  
+
   render() {
     const { value, children, onChange, onScroll,
-      headerHeight, className } = this.props;
+      height, headerHeight, className } = this.props;
 
     const columnsDef: Array<ColumnProps> = [];
     Children
@@ -45,7 +46,9 @@ export default class TreeTable extends Component<Props, State> {
     return (
       <div className={`cp_tree-table ${className != null && className}`}>
         <TreeTableHeader columns={columnsDef} height={headerHeight}/>
-        { value.hasData && <VirtualList data={value} columns={columnsDef} onChange={onChange || noopOnChange}
+        { value.hasData && <VirtualList data={value} columns={columnsDef}
+          height={Number(height) || TABLE_DEFAULT_HEIGHT}
+          onChange={onChange || noopOnChange}
           ref={this.vListRef}
           onScroll={onScroll || noopOnScroll} /> }
       </div>

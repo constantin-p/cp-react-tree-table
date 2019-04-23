@@ -9,19 +9,19 @@ type Props = {
   data: Readonly<TreeState>;
   columns: Array<ColumnProps>;
 
+  height: number;
+
   onChange: (value: Readonly<TreeState>) => void;
   onScroll: (scrollTop: number) => void;
 }
 
 type State = {
-  height: number,
   topOffset: number,
   overscanHeight: number,
 }
 
 export default class VirtualList extends Component<Props, State> {
   state = {
-    height: 200,
     topOffset: 0,
     overscanHeight: 100,
   };
@@ -29,8 +29,8 @@ export default class VirtualList extends Component<Props, State> {
   private containerRef = React.createRef<HTMLDivElement>();
 
   render() {
-    const { data, columns, onChange } = this.props;
-    const { height, topOffset, overscanHeight } = this.state;
+    const { data, columns, height, onChange } = this.props;
+    const { topOffset, overscanHeight } = this.state;
 
     const startYMax = Math.max(0, data.height - height - (overscanHeight * 2));
     const startY = Math.min(startYMax, Math.max(0, topOffset - overscanHeight));

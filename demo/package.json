@@ -1,6 +1,7 @@
 {
   "name": "cp-react-tree-table-demo",
-  "version": "0.1.11",
+  "description": "TreeTable demo meta-package",
+  "version": "0.0.0",
   "private": true,
   "homepage": "https://constantin-p.github.io/cp-react-tree-table",
   "scripts": {
@@ -11,7 +12,7 @@
     "flow": "flow"
   },
   "dependencies": {
-    "cp-react-tree-table": "^1.0.0-alpha",
+    "cp-react-tree-table": "^1.0.0-beta.2",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-scripts": "^2.1.3"
