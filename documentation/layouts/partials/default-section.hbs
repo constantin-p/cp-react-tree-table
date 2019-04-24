@@ -1,0 +1,14 @@
+{{#each articles}}
+  <article>
+    <div id="{{ slug }}" class="article-target"></div>
+
+    <a href="#{{slug}}" class="article-title">
+      <h1>{{ title }}</h1>
+    </a>
+
+    <div class="article-content">
+{{{ contents }}}
+    </div>
+
+  </article>
+{{/each}}

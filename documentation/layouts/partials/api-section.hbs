@@ -1,0 +1,14 @@
+{{#each articles}}
+  <article>
+    <div id="{{ slug }}" class="article-target"></div>
+
+    <a href="#{{slug}}" class="article-title">
+      {{> api-section-header }}
+    </a>
+    
+    <div class="article-content">
+{{{ contents }}}
+    </div>
+    
+  </article>
+{{/each}}

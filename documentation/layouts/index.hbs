@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ title }}</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="{{ description }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
+</head>
+<body>
+
+  <header>
+    <nav class="main-nav">
+      <div class="nav-section">
+        <a href="https://constantin-p.github.io/cp-react-tree-table/" class="brand">cp-react-tree-table</a>
+        <span class="version-tag">{{currentVersionKey}}</span>
+      </div>
+      <ul class="nav-section">
+        <li class="hide-desktop select">
+          <select onchange="window.location.hash = `#${this.value}`;">
+            {{#at-key versions currentVersionKey}}
+              <ul class="{{@key}}">
+                {{#with sections}}
+                  {{> select-sections }}
+                {{/with}}
+              </ul>
+            {{/at-key}}
+          </select>
+        </li>
+        <li class="hide-desktop divider"></li>
+        <li>
+          <a href="https://github.com/constantin-p/cp-react-tree-table">
+            <span>GitHub</span>
+            <span class="package-name hide-mobile">cp-react-tree-table</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.npmjs.com/package/cp-react-tree-table">
+            <span>npm</span>
+            <span class="package-name hide-mobile">cp-react-tree-table</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    {{#at-key versions currentVersionKey}}
+
+      <div id="{{@key}}" class="version">
+      {{#with sections}}
+        {{#with overview}}
+{{> section }}
+        {{/with}}  <!-- overview -->
+        {{#with api-reference}}
+{{> section api=true }}
+        {{/with}}  <!-- api-reference -->
+        {{#with demos}}
+{{> section }}
+        {{/with}}  <!-- demos -->
+        {{#with update-guide}}
+{{> section }}
+        {{/with}}  <!-- update-guide -->
+      {{/with}}
+      </div>
+
+    {{/at-key}}
+  </main>
+
+{{!-- TODO: Desktop outline  <nav class="oultine">
+    {{#at-key versions currentVersionKey}}
+      <ul class="{{@key}}">
+        {{#with sections}}
+          {{> outline-sections }}
+        {{/with}}
+      </ul>
+    {{/at-key}}
+  </nav> --}}
+
+</body>
+</html>

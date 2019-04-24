@@ -1,127 +1,168 @@
-// @flow
 import React, { Component } from 'react';
 
-import TreeDataTable from 'cp-react-tree-table';
-import type { RowMetadata } from 'cp-react-tree-table';
-
-import { generateData } from './mockData';
+import { TreeTable, TreeState } from 'cp-react-tree-table';
+import { generateData } from './mock-data-gen';
 
 
-type Props = { };
-type State = { };
+const MOCK_DATA = generateData();
+export default class DemoApp extends Component {
+  state = {
+    treeValue: TreeState.create(MOCK_DATA.data)
+  };
 
-const DATA = generateData();
+  treeTableRef = React.createRef();
 
-export default class DemoApp extends Component<Props, State> {
-  tableRef: ?TreeDataTable; 
-
-  render () {
-    const { data, count } = DATA;
-
+  render() {
+    const { treeValue } = this.state;
+    
     return (
       <div className="wrapper">
-
         <header>
-          <div className="header-section links">
-            <ul>
-              <li>
-                <a href="https://github.com/constantin-p/cp-react-tree-table">
-                  <span className="service">GitHub</span>
-                  <span className="name hide-mobile">cp-react-tree-table</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://www.npmjs.com/package/cp-react-tree-table">
-                  <span className="service">npm</span>
-                  <span className="name hide-mobile">cp-react-tree-table</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+          <section>
+            <div className="description">
+              <h1>cp-react-tree-table</h1>
+              <p>A fast, efficient tree table component for ReactJS.</p>
+              <ul>
+                <li>
+                  <a href="https://github.com/constantin-p/cp-react-tree-table">
+                    <span className="service">GitHub</span>
+                    <span className="name hide-mobile"><u>cp-react-tree-table</u></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.npmjs.com/package/cp-react-tree-table">
+                    <span className="service">npm</span>
+                    <span className="name hide-mobile"><u>cp-react-tree-table</u></span>
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-          <div className="header-section install">
-            <p className="install-npm">
-              npm install --save cp-react-tree-table 
-            </p>
-            <div className="divider hide-mobile"></div>
-            <p className="install-yarn hide-mobile">
-              yarn add cp-react-tree-table
-            </p>
-          </div>
+            <div className="install-instructions">
+              <p className="install-npm">
+                npm install --save cp-react-tree-table
+              </p>
+              <div className="divider"></div>
+              <p className="install-yarn">
+                yarn add cp-react-tree-table
+              </p>
+            </div>
+          </section>
         </header>
         
-        <p className="controls">
-          Row count: <span>{count}</span>.
-          <button onClick={this.handleOnExpandAll}>Expand all</button>
-          <button onClick={this.handleOnCollapseAll}>Collapse all</button>
-        </p>
-        <TreeDataTable className="demo-tree-table"
-          ref={elem => {this.tableRef = elem}}
-          data={data}
-          height={500}
-          rowHeight={30}
+        <div className="controls">
+          <div className="control-section">
+            <span>Node count: {this.renderNodeCount(MOCK_DATA.count)}</span>
+          </div>
+          <div className="control-section">
+            <button onClick={this.handleOnExpandAll}>Expand all</button>
+            <button onClick={this.handleOnCollapseAll}>Collapse all</button>
+            <button onClick={this.handleScrollTo}>Scroll to 1000px</button>
+          </div>
+        </div>
+
+        <TreeTable className="demo-tree-table"
+          height="360"
+          headerHeight="32"
+
+          value={treeValue}
+          onChange={this.handleOnChange}
+
+          ref={this.treeTableRef}
           onScroll={this.handleOnScroll}>
-          <TreeDataTable.Column grow={0} basis="210px" renderCell={this.renderIndexColumn} />
-          <TreeDataTable.Column grow={1} renderCell={this.renderColumn} />
-        </TreeDataTable>
-      </div>
-    )
-  }
-
-  renderIndexColumn = (data: any, metadata: RowMetadata, toggleChildren: () => void) => {
-    return (
-      <div className="cell-wrapper" style={{ paddingLeft: `${(metadata.depth * 25)}px`, backgroundColor: this._computeBg(data.heightLabel) }}>
-        <span className="toggle-button-wrapper" style={{ width: '80px'}}>
-          {(metadata.hasChildren)
-            ? (
-                <span className="toggle-button"
-                  onClick={toggleChildren}>[toggle{(metadata.hasVisibleChildren) ? '-' : '+' }]</span>
-              )
-            : ''
-          }
-        </span>
-        
-        <span>{data.name}</span>
-      </div>
-    );
-  }
-  
-  renderColumn = (data: any, metadata: RowMetadata, toggleChildren: () => void) => {
-    return (
-      <div className="cell-wrapper" style={{ backgroundColor: this._computeBg(data.heightLabel) }}>
-        <span>Height: {data.heightLabel}.</span>
+          <TreeTable.Column renderCell={this.renderIndexCell} renderHeaderCell={this.renderHeaderCell('Name')} basis="180px" grow="0"/>
+          <TreeTable.Column renderCell={this.renderEditableCell} renderHeaderCell={this.renderHeaderCell('Contact person')}/>
+          <TreeTable.Column renderCell={this.renderEmployeesCell} renderHeaderCell={this.renderHeaderCell('Employees', false)}/>
+          <TreeTable.Column renderCell={this.renderExpensesCell} renderHeaderCell={this.renderHeaderCell('Expenses ($)', false)}/>
+        </TreeTable>
       </div>
     );
   }
 
-  handleOnScroll = (scrollTop: number) => {
-    console.log('Scroll top: ', scrollTop);
+  handleOnChange = (newValue) => {
+    console.log('newValue', newValue)
+    this.setState({ treeValue: newValue });
+  }
+
+  handleOnScroll = (newValue) => {
+    console.log('onScroll', newValue)
   }
 
   handleOnExpandAll = () => {
     console.log('Expand all');
-    if (this.tableRef != null) {
-      this.tableRef.expandAll();
-    }
+    this.setState((state) => {
+      return {
+        treeValue: TreeState.expandAll(state.treeValue),
+      };
+    });
   }
 
   handleOnCollapseAll = () => {
     console.log('Collapse all');
-    if (this.tableRef != null) {
-      this.tableRef.collapseAll();
+    this.setState((state) => {
+      return {
+        treeValue: TreeState.collapseAll(state.treeValue)
+      };
+    });
+  }
+
+  handleScrollTo = () => {
+    console.log('Scroll to');
+    if (this.treeTableRef.current != null) {
+      this.treeTableRef.current.scrollTo(1000);
     }
   }
 
-  _computeBg = (heightKey: string) => {
-    const heightColorMap = {
-      '26px':'rgba(255, 255, 255, .5)',
-      '30px':'rgba(250, 251, 252, .5)',
-      '32px':'rgba(244, 245, 247, .4)',
-      '36px':'rgba(235, 236, 240, .4)',
-      '38px':'rgba(223, 225, 229, .3)',
-      '42px':'rgba(193, 199, 208, .3)',
-    };
+  renderHeaderCell = (name, alignLeft = true) => {
+    return () => {
+      return (
+        <span className={alignLeft ? 'align-left' : 'align-right'}>{name}</span>
+      );
+    }
+  }
 
-    return heightColorMap[heightKey];
+  renderIndexCell = (row) => {
+    return (
+      <div style={{ paddingLeft: (row.metadata.depth * 15) + 'px'}}
+        className={row.metadata.hasChildren ? 'with-children' : 'without-children'}>
+        {(row.metadata.hasChildren)
+          ? (
+              <button className="toggle-button" onClick={row.toggleChildren}></button>
+            )
+          : ''
+        }
+        <span>{row.data.name}</span>
+      </div>
+    );
+  }
+
+  renderEmployeesCell = (row) => {
+    return (
+      <span className="employees-cell">{row.data.employees}</span>
+    );
+  }
+
+  renderExpensesCell = (row) => {
+    return (
+      <span className="expenses-cell">{row.data.expenses}</span>
+    );
+  }
+
+  renderEditableCell = (row) => {
+    return (
+      <input type="text" value={row.data.contact}
+        onChange={(event) => {
+          row.updateData({
+            ...row.data,
+            contact: event.target.value,
+          });
+        }}/>
+    );
+  }
+
+  renderNodeCount = (value) => {
+    return (
+      <span className="node-count">{value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</span>
+    );
   }
 }

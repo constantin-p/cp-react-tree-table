@@ -1,0 +1,10 @@
+<section>
+  <div id="{{ slug }}" class="section-target"></div>
+  <div class="section-content">
+    {{#if api}}
+{{> api-section }}
+    {{else}}
+{{> default-section }}
+    {{/if}}
+  </div>
+</section>
