@@ -27,7 +27,7 @@ yarn add cp-react-tree-table
 Import the `cp-react-tree-table` module:
 
 ```javascript
-import TreeDataTable from 'cp-react-tree-table';
+import { TreeTable, TreeState } from 'cp-react-tree-table';
 ```
 
 
