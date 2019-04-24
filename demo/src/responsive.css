@@ -88,8 +88,16 @@
   }
 
   header > section .install-instructions {
-    margin-top: 3rem;
     flex-direction: column;
+  }
+
+  header .description {
+    text-align: center;
+  }
+
+  header section .description ul {
+    margin: 1.6rem;
+    justify-content: center;
   }
 
   header .install-instructions p {
@@ -106,6 +114,7 @@
   header > section .divider::after {
     left: initial;
     transform: translateY(-50%);
+    padding: 0 .3rem;
   }
 
   .controls {

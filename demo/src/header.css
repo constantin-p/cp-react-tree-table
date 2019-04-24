@@ -78,10 +78,15 @@ header section .install-instructions {
   display: flex;
   flex: 0 0 auto;
 
-  background: #f7f6f3;
+  /*background: #f7f6f3;*/
   border: 1px solid rgba(55, 53, 47, .08);
   border-radius: 3px;
   overflow: hidden;
+
+  /*background: rgba(132, 120, 98, 0.06);*/
+  color: white;
+  border: 2px solid rgba(55, 53, 47, .08);
+  border-radius: 6px;
 }
 
 header .install-instructions p {
@@ -91,7 +96,6 @@ header .install-instructions p {
   font-weight: 400;
   font-size: 1.4rem;
   font-family: 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, Courier, monospace;
-  background: #f7f6f3;
 }
 
 header .install-instructions p:hover {
@@ -114,7 +118,7 @@ header .install-instructions p::before {
 .divider::after {
   position: absolute;
   color: rgba(55, 53, 47, .16);
-  background: #f7f6f3;
+  background: #fffefc;
   content: 'OR';
   display: inline-block;
   font-size: 1.2rem;
