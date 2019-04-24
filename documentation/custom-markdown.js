@@ -1,6 +1,6 @@
 const markdown = require('metalsmith-markdownit');
 const markdowndeflist = require('markdown-it-deflist');
-const hljs = require('highlight.js');
+const prism = require('prismjs');
 const walk = require('fs-tools').walk;
 const path = require('path');
 
@@ -30,16 +30,13 @@ module.exports = (options) => {
 
     // 2. Markdown setup
     const setupMk = (done) => {
-      var md = markdown('default', {
+      var md = markdown({
         html: false,
         highlight: function (str, lang) {
-          if (lang && hljs.getLanguage(lang)) {
-            try {
-              return '<pre class="hljs"><code>' + hljs.highlight(lang, str, true).value + '</code></pre>';
-            } catch (__) {}
+          if (lang && lang == 'javascript') {
+            return  prism.highlight(str.trim(), prism.languages.javascript, 'javascript');
           }
-
-          return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+          return '<pre class="default"><code>' + md.parser.utils.escapeHtml(str.trim()) + '</code></pre>';
         }
       });
       md.use(markdowndeflist);

@@ -2,18 +2,20 @@
 <html>
 <head>
   <title>{{ title }}</title>
+  <meta charset="UTF-8">
   <meta name="description" content="{{ description }}" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/syntax.css">
 </head>
 <body>
 
   <header>
     <nav class="main-nav">
       <div class="nav-section">
-        <span class="brand">cp-react-tree-table</span>
+        <a href="https://constantin-p.github.io/cp-react-tree-table/" class="brand">cp-react-tree-table</a>
         <span class="version-tag">{{currentVersionKey}}</span>
       </div>
       <ul class="nav-section">
@@ -50,16 +52,16 @@
       <div id="{{@key}}" class="version">
       {{#with sections}}
         {{#with overview}}
-          {{> section }}
+{{> section }}
         {{/with}}  <!-- overview -->
         {{#with api-reference}}
-          {{> section api=true }}
+{{> section api=true }}
         {{/with}}  <!-- api-reference -->
         {{#with demos}}
-          {{> section }}
+{{> section }}
         {{/with}}  <!-- demos -->
         {{#with update-guide}}
-          {{> section }}
+{{> section }}
         {{/with}}  <!-- update-guide -->
       {{/with}}
       </div>

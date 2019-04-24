@@ -20,6 +20,13 @@ Represents a snapshot of the state of the table. Changes within the table will c
 : Whether the tree represented by this object contains any nodes.
 
 
+
+## Public Methods
+
+@/tmethod/`findRowModel`/@ @/type/(`node`: `TreeNode`>) => `RowModel`|`undefined`/@
+: Returns the `RowModel` object that corresponds to the given node.
+
+
 ## Public Static Methods
 
 @/tmethod/`create`/@ @/type/(`data`: `Array`<`TreeNode`>) => `Readonly`<`TreeState`>/@
@@ -33,3 +40,6 @@ Represents a snapshot of the state of the table. Changes within the table will c
 
 @/tmethod/`collapseAll`/@ @/type/(`source`: `Readonly`<`TreeState`>) => `Readonly`<`TreeState`>/@
 :  Returns a new `TreeState` object with all tree nodes collapsed.
+
+@/tmethod/`expandAncestors`/@ @/type/(`source`: `Readonly`<`TreeState`>, `model`: `RowModel`) => `Readonly`<`TreeState`>/@
+:  Returns a new `TreeState` object with all ancestors for the given node expanded.

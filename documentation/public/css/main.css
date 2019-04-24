@@ -73,7 +73,11 @@ nav.main-nav > ul.nav-section li > a:hover {
 
 nav.main-nav > .nav-section .brand {
   line-height: 2.6rem;
+  font-weight: 500;
+  color: #040402;
+  text-decoration: none;
 }
+
 nav.main-nav > .nav-section .version-tag {
   font-family: 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', Menlo, Courier, monospace;
   color: #fff;
@@ -320,8 +324,8 @@ article > .article-title > h1 .implements::before {
 }
 
 .article-content > pre {
+  padding: 1.6rem;
   border-radius: 3px;
-  text-align: left;
   position: relative;
   background: #f7f6f3;
 }
@@ -332,6 +336,8 @@ article > .article-title > h1 .implements::before {
 
 .article-content a {
   color: #0b6e99;
+  text-decoration: none;
+  border-bottom: 1px dotted #0b6e99;
 }
 
 .article-content dl p {
@@ -347,14 +353,18 @@ article > .article-title > h1 .implements::before {
   margin-top: 1rem;
 }
 
-.article-content dl > dt {
-
-}
-
 .article-content dl > dd {
   margin: 1rem 0 2rem 0;
   line-height: 1.5;
   color: #37352f;
+}
+
+.article-content > hr {
+  width: 100%;
+  height: 1px;
+  background: rgba(55, 53, 47, 0.16);
+  border: none;
+  margin: 2rem 0;
 }
 
 
@@ -417,6 +427,14 @@ article > .article-title > h1 .implements::before {
 
 .article-content .cb.type > p code {
   color: #607d8b;
+}
+
+.article-content .cb.tag > p code {
+  color: #eb5757;
+  padding: 0 3px;
+  margin: 0 1px;
+  background-color: #fbe4e4;
+  border-radius: 3px;
 }
 
 .article-content .cb.note {
