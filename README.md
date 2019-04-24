@@ -4,23 +4,6 @@
 
 A fast, efficient tree table component for ReactJS.
 
-[Live Demo](https://constantin-p.github.io/cp-react-tree-table)
-
-
-### Installation
-
-###### [Method A] Using [npm](https://www.npmjs.com):
-
-```sh
-npm install --save cp-react-tree-table
-```
-
-###### [Method B] Using [yarn](https://yarnpkg.com):
-
-```sh
-yarn add cp-react-tree-table
-```
-
 
 ### Usage
 
