@@ -3,6 +3,7 @@ import VirtualListRow from './VirtualListRow';
 import { ColumnProps } from './Column';
 import TreeState from '../model/tree-state';
 import { RowModel } from '../model/row';
+import { createRefPolyfill } from '../util/ref-polyfill';
 
 
 type Props = {
@@ -26,7 +27,7 @@ export default class VirtualList extends Component<Props, State> {
     overscanHeight: 100,
   };
 
-  private containerRef = React.createRef<HTMLDivElement>();
+  private containerRef = createRefPolyfill<HTMLDivElement>();
 
   render() {
     const { data, columns, height, onChange } = this.props;
@@ -116,6 +117,6 @@ const STYLE_CONTENT: CSSProperties = {
   overflow: 'visible',
   height: '100%',
   width: '100%',
-  top: '0',
-  left: '0',
+  top: '0px',
+  left: '0px',
 };

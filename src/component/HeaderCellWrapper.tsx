@@ -13,7 +13,7 @@ type State = { }
 export default class HeaderCellWrapper extends Component<Props, State> {
   static defaultProps = {
     grow: 1,
-    basis: '0',
+    basis: '0px',
   };
 
   render() {
