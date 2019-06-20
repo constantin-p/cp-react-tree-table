@@ -3,14 +3,12 @@ import HeaderCellWrapper from './HeaderCellWrapper';
 import { ColumnProps } from './Column';
 
 
-type Props = {
+export type TreeTableHeaderProps = {
   columns: Array<ColumnProps>;
   height?: number;
 }
 
-type State = { }
-
-export default class TreeTableHeader extends Component<Props, State> {
+export default class TreeTableHeader extends Component<TreeTableHeaderProps, {}> {
   static defaultProps = {
     height: 26,
   };

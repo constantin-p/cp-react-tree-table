@@ -6,7 +6,7 @@ import { RowModel } from '../model/row';
 import { createRefPolyfill } from '../util/ref-polyfill';
 
 
-type Props = {
+export type VirtualListProps = {
   data: Readonly<TreeState>;
   columns: Array<ColumnProps>;
 
@@ -16,12 +16,12 @@ type Props = {
   onScroll: (scrollTop: number) => void;
 }
 
-type State = {
+export type VirtualListState = {
   topOffset: number,
   overscanHeight: number,
 }
 
-export default class VirtualList extends Component<Props, State> {
+export default class VirtualList extends Component<VirtualListProps, VirtualListState> {
   state = {
     topOffset: 0,
     overscanHeight: 100,

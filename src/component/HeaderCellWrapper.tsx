@@ -1,16 +1,14 @@
 import React, { Component, CSSProperties } from 'react';
 
 
-type Props = {
+export type HeaderCellWrapperProps = {
   renderHeaderCell: () => Node;
 
   grow?: number;
   basis?: string; // <CSS size> | auto
 }
 
-type State = { }
-
-export default class HeaderCellWrapper extends Component<Props, State> {
+export default class HeaderCellWrapper extends Component<HeaderCellWrapperProps, {}> {
   static defaultProps = {
     grow: 1,
     basis: '0px',

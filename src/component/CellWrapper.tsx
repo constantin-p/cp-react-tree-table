@@ -2,7 +2,7 @@ import React, { Component, CSSProperties } from 'react';
 import Row from '../model/row';
 
 
-type Props = {
+export type CellWrapperProps = {
   row: Row;
   renderCell: (row: Row) => Node;
 
@@ -10,9 +10,7 @@ type Props = {
   basis?: string; // <CSS size> | auto
 }
 
-type State = { }
-
-export default class CellWrapper extends Component<Props, State> {
+export default class CellWrapper extends Component<CellWrapperProps, {}> {
   static defaultProps = {
     grow: 1,
     basis: '0px',

@@ -6,7 +6,7 @@ import TreeState from '../model/tree-state';
 import { createRefPolyfill } from '../util/ref-polyfill';
 
 
-type Props = {
+export type TreeTableProps = {
   // Model properties
   value: Readonly<TreeState>;
   onChange?: (value: Readonly<TreeState>) => void;
@@ -22,12 +22,10 @@ type Props = {
   className?: string;
 }
 
-type State = { }
-
 const TABLE_DEFAULT_HEIGHT = 260;
 const noopOnChange = (value: Readonly<TreeState>) => {}
 const noopOnScroll = (scrollTop: number) => {}
-export default class TreeTable extends Component<Props, State> {
+export default class TreeTable extends Component<TreeTableProps, {}> {
   static Column = Column;
   private vListRef = createRefPolyfill<VirtualList>();
 

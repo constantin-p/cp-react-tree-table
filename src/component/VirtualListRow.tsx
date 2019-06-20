@@ -6,7 +6,7 @@ import Row, { RowModel } from '../model/row';
 import { createRow } from '../util/row-creator';
 
 
-type Props = {
+export type VirtualListRowProps = {
   data: Readonly<TreeState>;
   model: RowModel;
   columns: Array<ColumnProps>;
@@ -17,9 +17,7 @@ type Props = {
   relIndex: number;
 }
 
-type State = { }
-
-export default class VirtualListRow extends Component<Props, State> {
+export default class VirtualListRow extends Component<VirtualListRowProps, {}> {
   
   render() {
     const { model, columns, data, index, relIndex } = this.props;
