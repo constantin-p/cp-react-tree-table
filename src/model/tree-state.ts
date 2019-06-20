@@ -9,11 +9,11 @@ export interface TreeNode {
 }
 
 export default class TreeState {
-  readonly data: Readonly<Array<RowModel>>;
+  readonly data: ReadonlyArray<RowModel>;
   readonly height: number;
   readonly hasData: boolean;
 
-  protected constructor(data: Readonly<Array<RowModel>>) {
+  protected constructor(data: ReadonlyArray<RowModel>) {
     this.data = data;
     this.hasData = (data.length > 0);
     this.height = (data.length == 0)
