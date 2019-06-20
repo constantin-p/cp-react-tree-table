@@ -3,8 +3,8 @@ import Row from '../model/row';
 
 
 export type ColumnProps = {
-  renderCell: (row: Row) => Node;
-  renderHeaderCell: () => Node;
+  renderCell: (row: Row) => React.ReactNode;
+  renderHeaderCell: () => React.ReactNode;
 
   grow?: number;
   basis?: string; // <CSS size> | auto

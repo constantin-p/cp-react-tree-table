@@ -4,7 +4,7 @@ import Row from '../model/row';
 
 export type CellWrapperProps = {
   row: Row;
-  renderCell: (row: Row) => Node;
+  renderCell: (row: Row) => React.ReactNode;
 
   grow?: number;
   basis?: string; // <CSS size> | auto

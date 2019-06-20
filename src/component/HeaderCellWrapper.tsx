@@ -2,7 +2,7 @@ import React, { Component, CSSProperties } from 'react';
 
 
 export type HeaderCellWrapperProps = {
-  renderHeaderCell: () => Node;
+  renderHeaderCell: () => React.ReactNode;
 
   grow?: number;
   basis?: string; // <CSS size> | auto

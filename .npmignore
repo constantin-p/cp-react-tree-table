@@ -1,6 +1,7 @@
 coverage/
 scripts/
 demo/
+build/
 test/
 rollup.config.*
 .*
