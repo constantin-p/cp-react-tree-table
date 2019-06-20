@@ -6,11 +6,13 @@
   "umd": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c",
     "dev": "rollup -c -w",
     "type-check": "tsc -w",
+    "build:declaration": "tsc --project ./tsconfig.declaration.json && rollup --config rollup.config.declaration.js",
+    "build": "rollup -c && npm run build:declaration",
     "prepublishOnly": "npm run build",
     "predeploy": "cd demo && npm install && npm run build",
     "deploy": "gh-pages -d demo/build"
@@ -55,6 +57,7 @@
     "rollup": "^1.1.2",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-dts": "^1.1.2",
     "rollup-plugin-node-resolve": "^4.0.0",
     "typescript": "^3.3.1"
   }

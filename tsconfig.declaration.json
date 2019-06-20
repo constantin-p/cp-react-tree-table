@@ -1,0 +1,17 @@
+ {
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    // Process & infer types from .js files.
+    "allowJs": false,
+    // Only emit ‘.d.ts’ declaration files.
+    // Allow Babel to transform files.
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    // Generates corresponding .d.ts file.
+    "declaration": true,
+    // Output directory for generated declaration files.
+    "declarationDir": "build/types",             
+    // Allow default imports from modules with no default export.
+    "allowSyntheticDefaultImports": true,
+  }
+}
