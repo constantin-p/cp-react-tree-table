@@ -11,7 +11,10 @@ export type TreeTableProps = {
   value: Readonly<TreeState>;
   onChange?: (value: Readonly<TreeState>) => void;
 
-  children: Array<React.ReactElement<Column>>;
+  // TODO: watch https://github.com/microsoft/TypeScript/issues/21699
+  // and move to 'required' when possible 
+  // children: Array<React.ReactElement<Column>>;
+  children?: Array<React.ReactElement<Column>>;
 
   // View callbacks
   onScroll?: (scrollTop: number) => void,
