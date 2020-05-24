@@ -35,9 +35,9 @@ export default class TreeState {
 
             height: child.height || RowModel.DEFAULT_HEIGHT,
             hasChildren: true,
-            hasVisibleChildren: false,
           }, { // State
             isVisible: isVisible,
+            isExpanded: false,
             top: _top,
           })
 
@@ -57,10 +57,10 @@ export default class TreeState {
             }
           }
 
-          // Append the child & its descendants row models
+          // Append the current child & its descendants row models
           result.push(
             hasVisibleChildren
-              ? new RowModel(childRowModel.data, { ...childRowModel.metadata, hasVisibleChildren: true, }, childRowModel.$state)
+              ? new RowModel(childRowModel.data, childRowModel.metadata, { ...childRowModel.$state, isExpanded: true })
               : childRowModel
           );
           grandchildrenRowModels.map((gcRowModel: RowModel) => result.push(gcRowModel));
@@ -71,9 +71,9 @@ export default class TreeState {
 
             height: child.height || RowModel.DEFAULT_HEIGHT,
             hasChildren: false,
-            hasVisibleChildren: false,
           }, { // State
             isVisible: isVisible,
+            isExpanded: false,
             top: _top,
           }));
 
@@ -117,7 +117,7 @@ export default class TreeState {
       if (model.metadata.depth > 0 && model.$state.isVisible) {
         model.$state.isVisible = false;
       }
-      model.metadata.hasVisibleChildren = false;
+      model.$state.isExpanded = false;
       model.$state.top = _top;
       if (model.$state.isVisible) {
         _top+= model.metadata.height;
@@ -132,10 +132,10 @@ export default class TreeState {
       return model;
     });
 
-    // Update hasVisibleChildren for rows before the from↔to range
+    // Update $state.isExpanded for rows before the from↔to range
     if (startRange.length > 0 && updatedRange.length > 0) {
       if (startRange[startRange.length - 1].metadata.depth < updatedRange[0].metadata.depth) {
-        startRange[startRange.length - 1].metadata.hasVisibleChildren = false;
+        startRange[startRange.length - 1].$state.isExpanded = false;
       }
     }
 
@@ -157,13 +157,13 @@ export default class TreeState {
         _top+= model.metadata.height;
 
         // Peek at the next row, if depth > currentDepth & it will be toggled to be visible,
-        // hasVisibleChildren on the current row will be set to true
+        // $state.isExpanded on the current row will be set to true
         if (from + i + 1 < to) {
           const nextRowModel = source.data[from + i + 1];
           if (nextRowModel.metadata.depth > model.metadata.depth &&
             depthLimit == null || (depthLimit != null && nextRowModel.metadata.depth <= depthLimit)) {
 
-            model.metadata.hasVisibleChildren = true;
+            model.$state.isExpanded = true;
           }
         }
       }
@@ -178,10 +178,10 @@ export default class TreeState {
       return model;
     });
 
-    // Update hasVisibleChildren for rows before the from↔to range
+    // Update $state.isExpanded for rows before the from↔to range
     if (startRange.length > 0 && updatedRange.length > 0) {
       if (startRange[startRange.length - 1].metadata.depth < updatedRange[0].metadata.depth) {
-        startRange[startRange.length - 1].metadata.hasVisibleChildren = true;
+        startRange[startRange.length - 1].$state.isExpanded = true;
       }
     }
 
