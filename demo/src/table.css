@@ -62,38 +62,45 @@
 
 /* Index cell  */
 .demo-tree-table .cp_tree-table_cell .toggle-button {
+  appearance: none;
   position: relative;
-  display: inline-block;
+  font-size: 14px;
+  color: #040402;
   border: none;
-  height: 14px;
-  vertical-align: middle;
-  padding: 0 5px 0 0;
-  margin: 0;
-  cursor: pointer;
+  padding: 4px 0 4px 15px;
   background-color: transparent;
 }
-.demo-tree-table .cp_tree-table_cell .toggle-button::after {
+
+.demo-tree-table .cp_tree-table_cell .toggle-button:not(:disabled) {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.demo-tree-table .cp_tree-table_cell .toggle-button:not(:disabled)::after {
   content: '';
-  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 5px 5px 0 5px;
-  border-color: #040402 transparent transparent transparent;
+  
+
+  border-width: 5px 0 5px 5px;
+  border-color: transparent transparent transparent #040402;
   padding: 0;
   vertical-align: middle;
 }
 
-.demo-tree-table .cp_tree-table_cell .toggle-button + span {
-  vertical-align: middle;
+.demo-tree-table .cp_tree-table_cell .toggle-button.expanded:not(:disabled)::after {
+  border-width: 5px 5px 0 5px;
+  border-color: #040402 transparent transparent transparent;
 }
 
-.demo-tree-table .cp_tree-table_cell > .without-children > span {
-  padding-left: 15px;
-}
-
-.demo-tree-table .cp_tree-table_cell > .with-children > span {
+.demo-tree-table .cp_tree-table_cell span.is-waldo {
   font-weight: 600;
+  color: #0f55eb;
 }
 
 /* Employees cell */

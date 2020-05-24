@@ -120,8 +120,8 @@
   .controls {
     flex-direction: column;
   }
-  .controls .control-section:first-child {
-    padding-bottom: .8rem;
+  .controls .control-section > button {
+    margin-top: .8rem;
   }
   .controls .control-section > button:not(:last-child) {
     margin-right: .8rem;

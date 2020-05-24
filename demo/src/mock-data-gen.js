@@ -71,6 +71,31 @@ export const generateData = () => {
     count++;
   }
 
+  // Add a static record to showcase findRowModel & expandAncestors features 
+  data.push({
+    data: { name: 'Company TEST', expenses: '124,000', employees: '52', contact: 'Dani Hopkinson' },
+    height: 32,
+    children: [
+      {
+        data: { name: 'Department 1', expenses: '108,000', employees: '47', contact: 'Livia Wilton' },
+        children: [
+          { data: { name: 'Group alpha', expenses: '4,000', employees: '2', contact: 'Michael Dempsey' } },
+          { data: { name: 'Group beta', expenses: '5,000', employees: '5', contact: 'Nina Harvey' } },
+          { data: { name: 'Group gamma', expenses: '12,000', employees: '10', contact: 'Teagan Tobin' } },
+          { data: { name: 'Group delta', expenses: '3,000', employees: '5', contact: 'Aileen Payne' } },
+          { data: { name: 'Group zeta', expenses: '40,000', employees: '13', contact: 'Fred Moss' } },
+          { data: { name: 'Group epsilon', expenses: '32,000', employees: '8', contact: 'Daphne Thatcher' } },
+          { data: { name: 'Group Waldo', expenses: '12,000', employees: '4', contact: 'Owen Ryan', isWaldo: true } },
+        ]
+      },
+      {
+        data: { name: 'Department 2', expenses: '16,000', employees: '5', contact: 'Aileen Morley' },
+        height: 32,
+      }
+    ]
+  });
+  count+= 10;
+
   return {
     data: data,
     count: count,

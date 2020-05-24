@@ -63,6 +63,7 @@ export default class DemoApp extends Component {
             <button onClick={this.handleOnExpandAll}>Expand all</button>
             <button onClick={this.handleOnCollapseAll}>Collapse all</button>
             <button onClick={this.handleScrollTo}>Scroll to 1000px</button>
+            <button onClick={this.handleScrollToGroupWaldo}>Scroll to Group Waldo</button>
           </div>
         </div>
 
@@ -112,11 +113,29 @@ export default class DemoApp extends Component {
   }
 
   handleScrollTo = () => {
-    console.log('Scroll to');
+    console.log('Scroll to "1000px"');
     if (this.treeTableRef.current != null) {
       this.treeTableRef.current.scrollTo(1000);
     }
   }
+
+  handleScrollToGroupWaldo = () => {
+    console.log('Scroll to "Group Waldo"');
+    const { treeValue } = this.state;
+    const node = MOCK_DATA.data[MOCK_DATA.data.length - 1].children[0].children[0];
+
+    const rowModel = treeValue.findRowModel(node);
+    if (rowModel != null) {
+      this.setState({
+        treeValue: TreeState.expandAncestors(treeValue, rowModel),
+      }, () => {
+        if (this.treeTableRef.current != null) {
+          this.treeTableRef.current.scrollTo(treeValue.findRowModel(node).$state.top);
+        }
+      });
+    }
+  }
+  
 
   renderHeaderCell = (name, alignLeft = true) => {
     return () => {
@@ -128,15 +147,12 @@ export default class DemoApp extends Component {
 
   renderIndexCell = (row) => {
     return (
-      <div style={{ paddingLeft: (row.metadata.depth * 15) + 'px'}}
-        className={row.metadata.hasChildren ? 'with-children' : 'without-children'}>
-        {(row.metadata.hasChildren)
-          ? (
-              <button className="toggle-button" onClick={row.toggleChildren}></button>
-            )
-          : ''
-        }
-        <span>{row.data.name}</span>
+      <div style={{ paddingLeft: (row.metadata.depth * 15) + 'px'}}>
+        <button className={`toggle-button ${row.$state.isExpanded ? 'expanded' : ''}`}
+          onClick={row.toggleChildren}
+          disabled={!row.metadata.hasChildren}>
+          <span className={row.data.isWaldo ? 'is-waldo' : ''}>{row.data.name}</span>
+        </button>
       </div>
     );
   }

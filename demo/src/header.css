@@ -159,7 +159,7 @@ header .install-instructions p::before {
   background: rgba(242, 241, 238, 1);
   border: none;
   border-radius: 3px;
-  margin-right: 1.6rem;
+  margin-right: 1.2rem;
 
   color: #37352f;
   cursor: pointer;
@@ -169,7 +169,7 @@ header .install-instructions p::before {
 }
 
 .controls .control-section > button:last-child {
-  margin: 0;
+  margin-right: 0;
 }
 
 .controls .control-section > button:hover {
