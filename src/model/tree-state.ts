@@ -213,16 +213,16 @@ export default class TreeState {
       }
     }
 
-    // Find range end
+    // Find range end (the end of the current root node)
     let endIndex = model.metadata.index;
     for (; endIndex < source.data.length; endIndex++) {
       const currentRowModel = source.data[endIndex];
-      if (currentRowModel.metadata.depth !== model.metadata.depth) {
+      if (currentRowModel.metadata.depth === 0) {
         break;
       }
     }
 
-    return TreeState._showRowsInRange(source, startIndex, endIndex)
+    return TreeState._showRowsInRange(source, startIndex, endIndex);
   }
 
   static toggleChildren(source: Readonly<TreeState>, model: RowModel): Readonly<TreeState> {
