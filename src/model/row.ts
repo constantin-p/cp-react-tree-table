@@ -9,6 +9,7 @@ export type RowMetadata = {
 
   height: number;
   hasChildren: boolean;
+  hasVisibleChildren: boolean;
 }
 
 export type RowState = {

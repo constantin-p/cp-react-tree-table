@@ -29,26 +29,41 @@ export default class TreeState {
       let _top: number = top;
       for (let child of children) {
         if (child.children != null && child.children.length > 0) { // hasChildren
-          result.push(new RowModel(child.data, {  // Metadata
+          const childRowModel = new RowModel(child.data, {  // Metadata
             depth: depth,
             index: index++,
 
             height: child.height || RowModel.DEFAULT_HEIGHT,
             hasChildren: true,
+            hasVisibleChildren: false,
           }, { // State
             isVisible: isVisible,
             top: _top,
-          }));
+          })
 
           if (isVisible) {
             _top+= child.height || RowModel.DEFAULT_HEIGHT;
           }
 
+          let hasVisibleChildren = false;
           const grandchildren = _processNode(child.children, depth + 1, index, _top);
+          const grandchildrenRowModels: Array<RowModel> = [];
           for (let grandchild of grandchildren) {
-            result.push(grandchild);
+            grandchildrenRowModels.push(grandchild);
             index++;
+
+            if (grandchild.$state.isVisible) {
+              hasVisibleChildren = true;
+            }
           }
+
+          // Append the child & its descendants row models
+          result.push(
+            hasVisibleChildren
+              ? new RowModel(childRowModel.data, { ...childRowModel.metadata, hasVisibleChildren: true, }, childRowModel.$state)
+              : childRowModel
+          );
+          grandchildrenRowModels.map((gcRowModel: RowModel) => result.push(gcRowModel));
         } else {
           result.push(new RowModel(child.data, {  // Metadata
             depth: depth,
@@ -56,6 +71,7 @@ export default class TreeState {
 
             height: child.height || RowModel.DEFAULT_HEIGHT,
             hasChildren: false,
+            hasVisibleChildren: false,
           }, { // State
             isVisible: isVisible,
             top: _top,
@@ -79,16 +95,16 @@ export default class TreeState {
 
   static sliceRows(source: Readonly<TreeState>, from: number, to: number): ReadonlyArray<RowModel> {
     if (from < 0) {
-      throw new Error('Invalid range: from < 0 (${from} < 0).');
+      throw new Error(`Invalid range: from < 0 (${from} < 0).`);
     }
     if (from > source.data.length) {
-      throw new Error('Invalid range: from > max size (${from} > ${source.data.length}).');
+      throw new Error(`Invalid range: from > max size (${from} > ${source.data.length}).`);
     }
     if (to > source.data.length) {
-      throw new Error('Invalid range: to > max size (${to} > ${source.data.length}).');
+      throw new Error(`Invalid range: to > max size (${to} > ${source.data.length}).`);
     }
     if (from > to) {
-      throw new Error('Invalid range: from > to (${from} > ${to}).');
+      throw new Error(`Invalid range: from > to (${from} > ${to}).`);
     }
 
     return source.data.slice(from, to);
@@ -97,10 +113,11 @@ export default class TreeState {
   private static _hideRowsInRange(source: Readonly<TreeState>, from: number = 0, to: number = source.data.length): Readonly<TreeState> {
     const startRange = TreeState.sliceRows(source, 0, from);
     let _top: number = source.data[from].$state.top;
-    const updatedRange = TreeState.sliceRows(source, from, to).map((model: RowModel): RowModel => {
+    const updatedRange = TreeState.sliceRows(source, from, to).map((model: RowModel, i: number): RowModel => {
       if (model.metadata.depth > 0 && model.$state.isVisible) {
         model.$state.isVisible = false;
       }
+      model.metadata.hasVisibleChildren = false;
       model.$state.top = _top;
       if (model.$state.isVisible) {
         _top+= model.metadata.height;
@@ -115,13 +132,20 @@ export default class TreeState {
       return model;
     });
 
+    // Update hasVisibleChildren for rows before the from↔to range
+    if (startRange.length > 0 && updatedRange.length > 0) {
+      if (startRange[startRange.length - 1].metadata.depth < updatedRange[0].metadata.depth) {
+        startRange[startRange.length - 1].metadata.hasVisibleChildren = false;
+      }
+    }
+
     return new TreeState(startRange.concat(updatedRange, endRange));
   }
 
   private static _showRowsInRange(source: Readonly<TreeState>, from: number = 0, to: number = source.data.length, depthLimit?: number): Readonly<TreeState> {
     const startRange = TreeState.sliceRows(source, 0, from);
     let _top: number = source.data[from].$state.top;
-    const updatedRange = TreeState.sliceRows(source, from, to).map((model: RowModel): RowModel => {
+    const updatedRange = TreeState.sliceRows(source, from, to).map((model: RowModel, i: number): RowModel => {
       if (model.metadata.depth > 0 && !model.$state.isVisible) {
         // If a depthLimit value is set, only show nodes with a depth value less or equal
         if (depthLimit == null || (depthLimit != null && model.metadata.depth <= depthLimit)) {
@@ -131,7 +155,19 @@ export default class TreeState {
       model.$state.top = _top;
       if (model.$state.isVisible) {
         _top+= model.metadata.height;
+
+        // Peek at the next row, if depth > currentDepth & it will be toggled to be visible,
+        // hasVisibleChildren on the current row will be set to true
+        if (from + i + 1 < to) {
+          const nextRowModel = source.data[from + i + 1];
+          if (nextRowModel.metadata.depth > model.metadata.depth &&
+            depthLimit == null || (depthLimit != null && nextRowModel.metadata.depth <= depthLimit)) {
+
+            model.metadata.hasVisibleChildren = true;
+          }
+        }
       }
+      
       return model;
     });
     const endRange = TreeState.sliceRows(source, to, source.data.length).map((model: RowModel): RowModel => {
@@ -141,6 +177,13 @@ export default class TreeState {
       }
       return model;
     });
+
+    // Update hasVisibleChildren for rows before the from↔to range
+    if (startRange.length > 0 && updatedRange.length > 0) {
+      if (startRange[startRange.length - 1].metadata.depth < updatedRange[0].metadata.depth) {
+        startRange[startRange.length - 1].metadata.hasVisibleChildren = true;
+      }
+    }
 
     return new TreeState(startRange.concat(updatedRange, endRange));
   }
