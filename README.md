@@ -1,5 +1,5 @@
 # cp-react-tree-table
-[![npm version](https://badge.fury.io/js/cp-react-tree-table.svg)](https://badge.fury.io/js/cp-react-tree-table)
+[![npm version](https://img.shields.io/npm/v/cp-react-tree-table)](https://www.npmjs.com/package/cp-react-tree-table)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/constantin-p/cp-react-tree-table/raw/master/LICENSE)
 
 A fast, efficient tree table component for ReactJS.
