@@ -162,8 +162,7 @@ export default class TreeState {
           const nextRowModel = source.data[from + i + 1];
           if (nextRowModel.metadata.depth > model.metadata.depth &&
             depthLimit == null || (depthLimit != null && nextRowModel.metadata.depth <= depthLimit)) {
-
-            model.$state.isExpanded = true;
+            model.$state.isExpanded = model.metadata.hasChildren;
           }
         }
       }
