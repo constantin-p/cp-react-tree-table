@@ -1,9 +1,8 @@
-import React, { Component, Children } from 'react';
+import React, { Component, Children, createRef } from 'react';
 import Column, { ColumnProps } from './Column';
 import TreeTableHeader from './TreeTableHeader';
 import VirtualList from './VirtualList';
 import TreeState from '../model/tree-state';
-import { createRefPolyfill } from '../util/ref-polyfill';
 
 
 export type TreeTableProps = {
@@ -30,7 +29,7 @@ const noopOnChange = (value: Readonly<TreeState>) => {}
 const noopOnScroll = (scrollTop: number) => {}
 export default class TreeTable extends Component<TreeTableProps, {}> {
   static Column = Column;
-  private vListRef = createRefPolyfill<VirtualList>();
+  private vListRef = createRef<VirtualList>();
 
   render() {
     const { value, children, onChange, onScroll,

@@ -1,9 +1,8 @@
-import React, { Component, CSSProperties } from 'react';
+import React, { Component, CSSProperties, createRef } from 'react';
 import VirtualListRow from './VirtualListRow';
 import { ColumnProps } from './Column';
 import TreeState from '../model/tree-state';
 import { RowModel } from '../model/row';
-import { createRefPolyfill } from '../util/ref-polyfill';
 
 
 export type VirtualListProps = {
@@ -27,7 +26,7 @@ export default class VirtualList extends Component<VirtualListProps, VirtualList
     overscanHeight: 100,
   };
 
-  private containerRef = createRefPolyfill<HTMLDivElement>();
+  private containerRef = createRef<HTMLDivElement>();
 
   render() {
     const { data, columns, height, onChange } = this.props;
