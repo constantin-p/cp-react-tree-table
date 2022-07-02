@@ -12,6 +12,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "cp-react-tree-table": "^1.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -36,7 +37,7 @@
       "last 1 safari version"
     ]
   },
-  "overrides": {
+  "resolutions": {
     "nth-check": "2.0.1"
   }
 }
