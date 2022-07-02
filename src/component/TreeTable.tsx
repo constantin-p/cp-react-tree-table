@@ -12,8 +12,8 @@ export type TreeTableProps = {
 
   // TODO: watch https://github.com/microsoft/TypeScript/issues/21699
   // and move to 'required' when possible 
-  // children: Array<React.ReactElement<Column>>;
-  children?: Array<React.ReactElement<Column>>;
+  // children: Array<React.ReactElement<ColumnProps>>;
+  children?: Array<React.ReactElement<Column>> | React.ReactElement<Column>;
 
   // View callbacks
   onScroll?: (scrollTop: number) => void,
