@@ -160,13 +160,15 @@ export default class TreeState<T> {
       if (model.$state.isVisible) {
         _top+= model.metadata.height;
 
-        // Peek at the next row, if depth > currentDepth & it will be toggled to be visible,
-        // $state.isExpanded on the current row will be set to true
-        if (from + i + 1 < to) {
-          const nextRowModel = source.data[from + i + 1];
-          if (model.metadata.hasChildren && nextRowModel.metadata.depth > model.metadata.depth &&
-            depthLimit == null || (depthLimit != null && nextRowModel.metadata.depth <= depthLimit)) {
-            model.$state.isExpanded = true;
+        if (model.metadata.hasChildren) {
+          // Peek at the next row, if depth > currentDepth & it will be toggled to be visible,
+          // $state.isExpanded on the current row will be set to true
+          if (from + i + 1 < to) {
+            const nextRowModel = source.data[from + i + 1];
+            if (nextRowModel.metadata.depth > model.metadata.depth && depthLimit == null
+              || (depthLimit != null && nextRowModel.metadata.depth <= depthLimit)) {
+              model.$state.isExpanded = true;
+            }
           }
         }
       }
