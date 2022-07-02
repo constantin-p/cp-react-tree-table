@@ -164,9 +164,9 @@ export default class TreeState<T> {
         // $state.isExpanded on the current row will be set to true
         if (from + i + 1 < to) {
           const nextRowModel = source.data[from + i + 1];
-          if (nextRowModel.metadata.depth > model.metadata.depth &&
+          if (model.metadata.hasChildren && nextRowModel.metadata.depth > model.metadata.depth &&
             depthLimit == null || (depthLimit != null && nextRowModel.metadata.depth <= depthLimit)) {
-            model.$state.isExpanded = model.metadata.hasChildren;
+            model.$state.isExpanded = true;
           }
         }
       }
@@ -183,7 +183,8 @@ export default class TreeState<T> {
 
     // Update $state.isExpanded for rows before the from↔to range
     if (startRange.length > 0 && updatedRange.length > 0) {
-      if (startRange[startRange.length - 1].metadata.depth < updatedRange[0].metadata.depth) {
+      if (startRange[startRange.length - 1].metadata.hasChildren &&
+        startRange[startRange.length - 1].metadata.depth < updatedRange[0].metadata.depth) {
         startRange[startRange.length - 1].$state.isExpanded = true;
       }
     }
