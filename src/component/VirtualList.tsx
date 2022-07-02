@@ -1,18 +1,17 @@
-import React, { Component, CSSProperties } from 'react';
+import React, { Component, CSSProperties, createRef } from 'react';
 import VirtualListRow from './VirtualListRow';
 import { ColumnProps } from './Column';
 import TreeState from '../model/tree-state';
 import { RowModel } from '../model/row';
-import { createRefPolyfill } from '../util/ref-polyfill';
 
 
-export type VirtualListProps = {
-  data: Readonly<TreeState>;
-  columns: Array<ColumnProps>;
+export type VirtualListProps<TData> = {
+  data: Readonly<TreeState<TData>>;
+  columns: Array<ColumnProps<TData>>;
 
   height: number;
 
-  onChange: (value: Readonly<TreeState>) => void;
+  onChange: (value: Readonly<TreeState<TData>>) => void;
   onScroll: (scrollTop: number) => void;
 }
 
@@ -21,13 +20,13 @@ export type VirtualListState = {
   overscanHeight: number,
 }
 
-export default class VirtualList extends Component<VirtualListProps, VirtualListState> {
+export default class VirtualList<TData> extends Component<VirtualListProps<TData>, VirtualListState> {
   state = {
     topOffset: 0,
     overscanHeight: 100,
   };
 
-  private containerRef = createRefPolyfill<HTMLDivElement>();
+  private containerRef = createRef<HTMLDivElement>();
 
   render() {
     const { data, columns, height, onChange } = this.props;
@@ -42,14 +41,14 @@ export default class VirtualList extends Component<VirtualListProps, VirtualList
 
     const contentTopOffset = data.yPosAtIndex(startIndex);
 
-    let visibleRowsData: Array<RowModel> = [], lastVisibleRowIndex;
-    TreeState.sliceRows(data, startIndex, endIndex).forEach((rowModel: RowModel) => {
+    let visibleRowsData: Array<RowModel<TData>> = [];
+    TreeState.sliceRows(data, startIndex, endIndex).forEach((rowModel: RowModel<TData>) => {
       if (rowModel.$state.isVisible) {
         visibleRowsData.push(rowModel);
       }
     });
 
-    const visibleVLRows = visibleRowsData.map((rowModel: RowModel, relIndex: number) => {
+    const visibleVLRows = visibleRowsData.map((rowModel: RowModel<TData>, relIndex: number) => {
 
       return (
         <VirtualListRow key={relIndex}

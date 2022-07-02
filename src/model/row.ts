@@ -1,8 +1,6 @@
 import { ROW_DEFAULT_HEIGHT } from './constants';
 
 
-export type RowData = any;
-
 export type RowMetadata = {
   depth: number;
   index: number;
@@ -17,31 +15,31 @@ export type RowState = {
   top: number;
 }
 
-export class RowModel {
+export class RowModel<T> {
   static DEFAULT_HEIGHT: number = ROW_DEFAULT_HEIGHT;
 
-  readonly data: RowData;
+  readonly data: T;
   readonly metadata: RowMetadata;
   readonly $state: RowState;
 
-  constructor(data: RowData, metadata: RowMetadata, state: RowState) {
+  constructor(data: T, metadata: RowMetadata, state: RowState) {
     this.data = data;
     this.$state = state;
     this.metadata = metadata;
   }
 }
 
-export interface RowAPI {
+export interface RowAPI<T> {
   toggleChildren: () => void;
-  updateData: (newData: RowData) => void;
+  updateData: (newData: T) => void;
 }
 
-export default class Row extends RowModel implements RowAPI {
+export default class Row<T> extends RowModel<T> implements RowAPI<T> {
   // RowAPI
   public toggleChildren: () => void;
-  public updateData: (newData: RowData) => void;
+  public updateData: (newData: T) => void;
 
-  constructor(model: RowModel, api: RowAPI) {
+  constructor(model: RowModel<T>, api: RowAPI<T>) {
     // RowModel
     super(model.data, model.metadata, model.$state)
 

@@ -3,12 +3,12 @@ import HeaderCellWrapper from './HeaderCellWrapper';
 import { ColumnProps } from './Column';
 
 
-export type TreeTableHeaderProps = {
-  columns: Array<ColumnProps>;
+export type TreeTableHeaderProps<TData> = {
+  columns: Array<ColumnProps<TData>>;
   height?: number;
 }
 
-export default class TreeTableHeader extends Component<TreeTableHeaderProps, {}> {
+export default class TreeTableHeader<TData> extends Component<TreeTableHeaderProps<TData>, {}> {
   static defaultProps = {
     height: 26,
   };
@@ -20,7 +20,7 @@ export default class TreeTableHeader extends Component<TreeTableHeaderProps, {}>
     return (
       <div className="cp_tree-table_header"
         style={{ ...STYLE_ROW, height: `${height}px` }}>
-        {columns.map((column: ColumnProps, indexKey) => {
+        {columns.map((column: ColumnProps<TData>, indexKey) => {
           return (
             <HeaderCellWrapper key={indexKey}
               renderHeaderCell={column.renderHeaderCell} 

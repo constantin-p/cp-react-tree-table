@@ -1,15 +1,15 @@
 import TreeState from '../model/tree-state';
-import Row, { RowModel, RowAPI, RowData } from '../model/row';
+import Row, { RowModel, RowAPI } from '../model/row';
 
 
-export const createRow = (model: Readonly<RowModel>, source: Readonly<TreeState>, onChangeCb: (value: Readonly<TreeState>) => void): Readonly<Row> => {
-  let rowAPI: RowAPI = {
+export const createRow = <TData>(model: Readonly<RowModel<TData>>, source: Readonly<TreeState<TData>>, onChangeCb: (value: Readonly<TreeState<TData>>) => void): Readonly<Row<TData>> => {
+  let rowAPI: RowAPI<TData> = {
     toggleChildren: () => {
-      const nextState: Readonly<TreeState> = TreeState.toggleChildren(source, model);
+      const nextState: Readonly<TreeState<TData>> = TreeState.toggleChildren(source, model);
       onChangeCb(nextState);
     },
-    updateData: (newData: RowData) => {
-      const nextState: Readonly<TreeState> = TreeState.updateData(source, model, newData);
+    updateData: (newData: TData) => {
+      const nextState: Readonly<TreeState<TData>> = TreeState.updateData(source, model, newData);
       onChangeCb(nextState);
     }
   };

@@ -1,27 +1,27 @@
-import React, { Component, Children, CSSProperties } from 'react';
-import Column, { ColumnProps } from './Column';
+import React, { Component, CSSProperties } from 'react';
+import { ColumnProps } from './Column';
 import CellWrapper from './CellWrapper';
 import TreeState from '../model/tree-state';
 import Row, { RowModel } from '../model/row';
 import { createRow } from '../util/row-creator';
 
 
-export type VirtualListRowProps = {
-  data: Readonly<TreeState>;
-  model: RowModel;
-  columns: Array<ColumnProps>;
+export type VirtualListRowProps<TData> = {
+  data: Readonly<TreeState<TData>>;
+  model: RowModel<TData>;
+  columns: Array<ColumnProps<TData>>;
 
-  onChange: (value: Readonly<TreeState>) => void;
+  onChange: (value: Readonly<TreeState<TData>>) => void;
 
   index: number;
   relIndex: number;
 }
 
-export default class VirtualListRow extends Component<VirtualListRowProps, {}> {
+export default class VirtualListRow<TData> extends Component<VirtualListRowProps<TData>, {}> {
   
   render() {
     const { model, columns, data, index, relIndex } = this.props;
-    const row: Row = createRow(model, data, this.handleChange);
+    const row: Row<TData> = createRow<TData>(model, data, this.handleChange);
 
     return (
       <div className={`cp_tree-table_row`}
@@ -29,7 +29,7 @@ export default class VirtualListRow extends Component<VirtualListRowProps, {}> {
         data-index={index}
         data-relindex={relIndex}>
         
-        {columns.map((column: ColumnProps, indexKey) => {
+        {columns.map((column: ColumnProps<TData>, indexKey) => {
           return (
             <CellWrapper key={indexKey}
               row={row}
@@ -44,7 +44,7 @@ export default class VirtualListRow extends Component<VirtualListRowProps, {}> {
     );
   }
 
-  private handleChange = (value: Readonly<TreeState>): void => {
+  private handleChange = (value: Readonly<TreeState<TData>>): void => {
     const { onChange } = this.props;
     onChange(value);
   }
