@@ -5,6 +5,8 @@ import Row from '../model/row';
 export type ColumnProps<TData> = {
   renderCell: (row: Row<TData>) => React.ReactNode;
   renderHeaderCell: () => React.ReactNode;
+  renderFooterCell: () => React.ReactNode;
+
 
   grow?: number;
   basis?: string; // <CSS size> | auto
