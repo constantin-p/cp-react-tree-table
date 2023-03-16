@@ -276,7 +276,7 @@ export default class TreeState<T> {
       return;
     }
     for (let i = 0; i < this.data.length; i++) {
-      if (this.data[i].data == node.data) {
+      if (JSON.stringify(this.data[i].data) === JSON.stringify(node.data)) {
         return this.data[i];
       }
     }

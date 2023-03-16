@@ -33,6 +33,6 @@ export default class CellWrapper<TData> extends Component<CellWrapperProps<TData
 const STYLE_COLUMN: CSSProperties = {
   boxSizing: 'border-box',
   position: 'relative',
-  overflow: 'hidden',
+  overflow: 'visible',
   width: '100%',
 };
