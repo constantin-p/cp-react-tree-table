@@ -40,6 +40,6 @@ const STYLE_ROW: CSSProperties = {
 
   boxSizing: 'border-box',
   position: 'relative',
-  overflow: 'hidden',
+  overflow: 'visible',
   width: '100%',
 };

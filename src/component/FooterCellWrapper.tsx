@@ -30,6 +30,6 @@ export default class FooterCellWrapper extends Component<FooterCellWrapperProps,
 const STYLE_COLUMN: CSSProperties = {
   boxSizing: 'border-box',
   position: 'relative',
-  overflow: 'hidden',
+  overflow: 'visible',
   width: '100%',
 };
