@@ -22,9 +22,11 @@ export default class VirtualListRow<TData> extends Component<VirtualListRowProps
   render() {
     const { model, columns, data, index, relIndex } = this.props;
     const row: Row<TData> = createRow<TData>(model, data, this.handleChange);
+    // @ts-ignore
+    const rowClass = row.data[0].rowClass;
 
     return (
-      <div className={`cp_tree-table_row`}
+      <div className={`cp_tree-table_row${rowClass ? ' ' + rowClass : ''}`}
         style={{ ...STYLE_ROW, height: `${row.metadata.height}px` }}
         data-index={index}
         data-relindex={relIndex}>
