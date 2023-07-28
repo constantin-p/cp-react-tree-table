@@ -3,6 +3,7 @@ import Column, { ColumnProps } from './Column';
 import TreeTableHeader from './TreeTableHeader';
 import VirtualList from './VirtualList';
 import TreeState from '../model/tree-state';
+import TreeTableFooter from './TreeTableFooter';
 
 
 export type TreeTableProps<TData> = {
@@ -21,6 +22,7 @@ export type TreeTableProps<TData> = {
   // View properties
   height?: number; // view height (px)
   headerHeight?: number; // header height (px)
+  footerHeight?: number; // footer height (px)
   className?: string;
 }
 
@@ -33,7 +35,7 @@ export default class TreeTable<TData> extends Component<TreeTableProps<TData>, {
 
   render() {
     const { value, children, onScroll,
-      height, headerHeight, className } = this.props;
+      height, headerHeight, footerHeight ,className } = this.props;
 
     const columnsDef: Array<ColumnProps<TData>> = [];
     Children
@@ -52,6 +54,7 @@ export default class TreeTable<TData> extends Component<TreeTableProps<TData>, {
           onChange={this.handleChange}
           ref={this.vListRef}
           onScroll={onScroll || noopOnScroll} /> }
+          <TreeTableFooter columns={columnsDef} height={footerHeight}/>
       </div>
     );
   }

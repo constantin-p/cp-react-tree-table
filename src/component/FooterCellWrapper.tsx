@@ -1,29 +1,26 @@
 import React, { Component, CSSProperties } from 'react';
-import Row from '../model/row';
 
 
-export type CellWrapperProps<TData> = {
-  row: Row<TData>;
-  renderCell: (row: Row<TData>) => React.ReactNode;
+export type FooterCellWrapperProps = {
+  renderFooterCell: () => React.ReactNode;
 
   grow?: number;
   basis?: string; // <CSS size> | auto
 }
 
-export default class CellWrapper<TData> extends Component<CellWrapperProps<TData>, {}> {
+export default class FooterCellWrapper extends Component<FooterCellWrapperProps, {}> {
   static defaultProps = {
     grow: 1,
     basis: '0px',
   };
 
-
   render() {
-    const { row, renderCell, grow, basis } = this.props;
+    const { renderFooterCell, grow, basis } = this.props;
 
     return (
-      <div className={`cp_tree-table_cell`}
+      <div className={`cp_tree-table_footer-cell`}
         style={{ ...STYLE_COLUMN, flexGrow: grow, flexBasis: basis }}>
-        { renderCell(row) }
+        { renderFooterCell() }
       </div>
     );
   }

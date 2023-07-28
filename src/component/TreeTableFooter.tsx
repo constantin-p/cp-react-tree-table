@@ -1,14 +1,14 @@
 import React, { Component, CSSProperties } from 'react';
-import HeaderCellWrapper from './HeaderCellWrapper';
 import { ColumnProps } from './Column';
+import FooterCellWrapper from './FooterCellWrapper';
 
 
-export type TreeTableHeaderProps<TData> = {
+export type TreeTableFooterProps<TData> = {
   columns: Array<ColumnProps<TData>>;
   height?: number;
 }
 
-export default class TreeTableHeader<TData> extends Component<TreeTableHeaderProps<TData>, {}> {
+export default class TreeTableFooter<TData> extends Component<TreeTableFooterProps<TData>, {}> {
   static defaultProps = {
     height: 26,
   };
@@ -18,12 +18,12 @@ export default class TreeTableHeader<TData> extends Component<TreeTableHeaderPro
 
 
     return (
-      <div className="cp_tree-table_header"
+      <div className="cp_tree-footer"
         style={{ ...STYLE_ROW, height: `${height}px` }}>
         {columns.map((column: ColumnProps<TData>, indexKey) => {
           return (
-            <HeaderCellWrapper key={indexKey}
-              renderHeaderCell={column.renderHeaderCell} 
+            <FooterCellWrapper key={indexKey}
+              renderFooterCell={column.renderFooterCell} 
 
               grow={column.grow}
               basis={column.basis}/>
