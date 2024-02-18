@@ -1,0 +1,20 @@
+{
+  "name": "cp-react-tree-table/demo-bun",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "bun build ./index.tsx --outdir ./out --target browser",
+    "build:watch": "bun build ./index.tsx --outdir ./out --watch",
+    "serve:dev": "bunx serve out"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "cp-react-tree-table": "^1.1.1"
+  }
+}
