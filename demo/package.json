@@ -15,6 +15,6 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "cp-react-tree-table": "^1.1.1"
+    "cp-react-tree-table": "^1.1.2"
   }
 }
