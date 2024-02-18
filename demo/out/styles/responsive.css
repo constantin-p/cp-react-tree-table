@@ -1,0 +1,129 @@
+
+/* >= 768px */
+@media (min-width: 768px) {
+  .wrapper {
+    min-width: 100vh;
+    margin: 0 5%;
+  }
+}
+
+/* >= 992px */
+@media (min-width: 992px) {
+  .wrapper {
+    min-width: 100vh;
+    margin: 0 5%;
+  }
+
+  header > section {
+    align-items: flex-end;
+  }
+
+  header > section .install-instructions {
+    flex-direction: column;
+    margin: .2rem 0 .2rem 1.6rem;
+  }
+
+  header .install-instructions p {
+    padding: .8rem 1.6rem .8rem .8rem;
+  }
+
+  header > section .divider::after {
+    left: initial;
+    transform: translateY(-50%);
+  }
+}
+
+/* >= 1200px */
+@media (min-width: 1200px) {
+  .wrapper {
+    min-width: 100vh;
+    margin: 0 15%;
+  }
+}
+
+/* < 992px */
+@media (max-width: 991.98px) {
+  header > section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  header > section .install-instructions {
+    flex-direction: row;
+    margin: .2rem 0;
+  }
+
+  header .install-instructions p {
+    text-align: center;
+    padding: .8rem .2rem;
+  }
+
+  header .install-instructions p::before {
+    display: none;
+  }
+
+  header > section .divider {
+    width: 1px;
+    height: inherit;
+    margin: 0 1.3rem;
+    display: none;
+  }
+
+  header > section .divider::after {
+    top: 50%;
+    padding: .3rem 0;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* < 768px */
+@media (max-width: 767.98px) {
+  .hide-mobile {
+    display: none;
+  }
+
+  header > section {
+    padding-top: .8rem;
+    padding-bottom: 0;
+  }
+
+  header > section .install-instructions {
+    flex-direction: column;
+  }
+
+  header .description {
+    text-align: center;
+  }
+
+  header section .description ul {
+    margin: 1.6rem;
+    justify-content: center;
+  }
+
+  header .install-instructions p {
+    padding: .8rem;
+  }
+
+  header > section .divider {
+    display: block;
+    width: inherit;
+    height: 1px;
+    margin: .6rem 0;
+  }
+
+  header > section .divider::after {
+    left: initial;
+    transform: translateY(-50%);
+    padding: 0 .3rem;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+  .controls .control-section > button {
+    margin-top: .8rem;
+  }
+  .controls .control-section > button:not(:last-child) {
+    margin-right: .8rem;
+  }
+}

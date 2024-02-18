@@ -1,0 +1,50 @@
+html {
+  box-sizing: border-box;
+  font-size: 10px;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: #fffefc;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.4rem;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+}
+
+::selection {
+  background: #fff292;
+}
+
+a,
+a:focus,
+a:hover,
+a:active {
+  color: #000;
+  outline: none;
+  text-decoration: none;
+}
+
+button,
+button:focus,
+button:hover,
+button:active {
+  outline: none;
+}
+
+.wrapper { 
+  min-height: 100vh;
+  min-width: 100vw;
+  margin: 0 auto;
+  padding: 0 1rem 4rem 1rem;
+  box-sizing: border-box;
+}
+
+header {
+  align-items: stretch;
+  display: flex;
+  padding: 1.5rem 0;
+  flex-direction: column;
+}
