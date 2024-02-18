@@ -4,7 +4,7 @@
 
 A fast, efficient tree table component for ReactJS.
 
-[Live Demo](https://constantin-p.github.io/cp-react-tree-table) | [Documentation](https://constantin.software/cp-react-tree-table/docs/)
+[Live Demo](https://constantin.software/cp-react-tree-table) | [Documentation](https://constantin.software/cp-react-tree-table/docs/)
 
 [Documentation v0.x](https://github.com/constantin-p/cp-react-tree-table/tree/ver/0.x)
 
