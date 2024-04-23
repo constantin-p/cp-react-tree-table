@@ -2,16 +2,14 @@
 /* >= 768px */
 @media (min-width: 768px) {
   .wrapper {
-    min-width: 100vh;
-    margin: 0 5%;
+    margin: 0;
   }
 }
 
 /* >= 992px */
 @media (min-width: 992px) {
   .wrapper {
-    min-width: 100vh;
-    margin: 0 5%;
+    margin: 0;
   }
 
   header > section {
@@ -36,8 +34,8 @@
 /* >= 1200px */
 @media (min-width: 1200px) {
   .wrapper {
-    min-width: 100vh;
-    margin: 0 15%;
+    max-width: 992px;
+    margin: 0 auto;
   }
 }
 

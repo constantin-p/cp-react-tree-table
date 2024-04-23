@@ -36,9 +36,8 @@ button:active {
 
 .wrapper { 
   min-height: 100vh;
-  min-width: 100vw;
   margin: 0 auto;
-  padding: 0 1rem 4rem 1rem;
+  padding: 0 2rem 4rem 2rem;
   box-sizing: border-box;
 }
 
